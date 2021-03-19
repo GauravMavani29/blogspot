@@ -41,6 +41,12 @@
     @endif --}}
 
 </head>
+@if (!session()->has('adminData'))
+    <script>
+        window.location.href = "{{ url('admin/login') }}";
+
+    </script>
+@endif
 
 <body id="page-top">
     <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
@@ -85,14 +91,14 @@
             </li>
             <!-- Comments -->
             <li class="nav-item">
-                <a class="nav-link" href="{{ url('admin/comment') }}">
+                <a class="nav-link" href="{{ url('admin/comments') }}">
                     <i class="fas fa-fw fa-comments"></i>
                     <span>Comments</span>
                 </a>
             </li>
             <!-- Users -->
             <li class="nav-item">
-                <a class="nav-link" href="{{ url('admin/user') }}">
+                <a class="nav-link" href="{{ url('admin/users') }}">
                     <i class="fas fa-fw fa-users"></i>
                     <span>Users</span>
                 </a>
@@ -122,7 +128,7 @@
             <footer class="sticky-footer">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright © Your Website 2018</span>
+                        <span>Copyright © BlogSpot 2021</span>
                     </div>
                 </div>
             </footer>

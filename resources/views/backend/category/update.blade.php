@@ -17,12 +17,11 @@
         <div class="card mb-3">
             <div class="card-header">
                 <i class="fas fa-table"></i> Update Category
-                <a href="{{ url('admin/category') }}" class="float-right btn btn-sm btn-dark">All Data</a>
+                <a href="{{ url('admin/post') }}" class="float-right btn btn-sm btn-dark">All Data</a>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <form method="post" action="{{ url('admin/category/' . $collection->id) }}"
-                        enctype="multipart/form-data">
+                    <form method="post" action="{{ url('admin/post/' . $collection->id) }}" enctype="multipart/form-data">
                         @csrf
                         @method('put')
                         <table class="table table-bordered">
@@ -58,7 +57,7 @@
 
                                     <p><img src="{{ asset('images') }}/{{ $collection->image }}" alt="" height="60px"
                                             width="60px"></p>
-                                    <input type="hidden" value="{{ $collection->image }}" name="cur_image" required />
+                                    <input type="hidden" value="{{ $collection->image }}" name="cur_image" />
                                     <input type="file" name="cat_image" />
                                 </td>
                             </tr>

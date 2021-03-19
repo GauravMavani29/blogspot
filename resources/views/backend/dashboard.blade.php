@@ -22,9 +22,9 @@
                             <div class="card-body-icon">
                                 <i class="fas fa-fw fa-list"></i>
                             </div>
-                            <div class="mr-5">5 Categories</div>
+                            <div class="mr-5">{{ \App\Models\Category::count() }} Categories</div>
                         </div>
-                        <a class="card-footer text-white clearfix small z-1" href="category.html">
+                        <a class="card-footer text-white clearfix small z-1" href="category">
                             <span class="float-left">View Details</span>
                             <span class="float-right">
                                 <i class="fas fa-angle-right"></i>
@@ -38,9 +38,9 @@
                             <div class="card-body-icon">
                                 <i class="fas fa-fw fa-address-card"></i>
                             </div>
-                            <div class="mr-5">100 Posts</div>
+                            <div class="mr-5">{{ \App\Models\Post::count() }} Posts</div>
                         </div>
-                        <a class="card-footer text-white clearfix small z-1" href="#">
+                        <a class="card-footer text-white clearfix small z-1" href="post">
                             <span class="float-left">View Details</span>
                             <span class="float-right">
                                 <i class="fas fa-angle-right"></i>
@@ -54,9 +54,9 @@
                             <div class="card-body-icon">
                                 <i class="fas fa-fw fa-comments"></i>
                             </div>
-                            <div class="mr-5">123 Comments</div>
+                            <div class="mr-5">{{ \App\Models\Comment::count() }} Comments</div>
                         </div>
-                        <a class="card-footer text-white clearfix small z-1" href="#">
+                        <a class="card-footer text-white clearfix small z-1" href="comments">
                             <span class="float-left">View Details</span>
                             <span class="float-right">
                                 <i class="fas fa-angle-right"></i>
@@ -70,9 +70,9 @@
                             <div class="card-body-icon">
                                 <i class="fas fa-fw fa-users"></i>
                             </div>
-                            <div class="mr-5">13 Users</div>
+                            <div class="mr-5">{{ \App\Models\User::count() }} Users</div>
                         </div>
-                        <a class="card-footer text-white clearfix small z-1" href="#">
+                        <a class="card-footer text-white clearfix small z-1" href="users">
                             <span class="float-left">View Details</span>
                             <span class="float-right">
                                 <i class="fas fa-angle-right"></i>
@@ -94,42 +94,44 @@
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Position</th>
-                                    <th>Office</th>
-                                    <th>Age</th>
-                                    <th>Start date</th>
-                                    <th>Salary</th>
+                                    <th>#</th>
+                                    <th>Category</th>
+                                    <th>Title</th>
+                                    <th>Thumb Image</th>
+                                    <th>Full Image</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tfoot>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Position</th>
-                                    <th>Office</th>
-                                    <th>Age</th>
-                                    <th>Start date</th>
-                                    <th>Salary</th>
+                                    <th>#</th>
+                                    <th>Category</th>
+                                    <th>Title</th>
+                                    <th>Thumb Image</th>
+                                    <th>Full Image</th>
+                                    <th>Action</th>
                                 </tr>
                             </tfoot>
                             <tbody>
-                                <tr>
-                                    <td>Tiger Nixon</td>
-                                    <td>System Architect</td>
-                                    <td>Edinburgh</td>
-                                    <td>61</td>
-                                    <td>2011/04/25</td>
-                                    <td>$320,800</td>
-                                </tr>
-                                <tr>
-                                    <td>Garrett Winters</td>
-                                    <td>Accountant</td>
-                                    <td>Tokyo</td>
-                                    <td>63</td>
-                                    <td>2011/07/25</td>
-                                    <td>$170,750</td>
-                                </tr>
 
+                                @foreach ($collection as $item)
+                                    <tr>
+                                        <td>{{ $item->id }}</td>
+                                        <td>{{ $item->cat_id }}</td>
+                                        <td>{{ $item->title }}</td>
+                                        <td><img src="{{ asset('Post images/Thumbnail') . '/' . $item->thumb }}" alt=""
+                                                height="100px" width="100px"></td>
+                                        <td><img src="{{ asset('Post images/Main Images') . '/' . $item->full_img }}"
+                                                alt="" height="100px" width="100px"></td>
+                                        <td style="display: flex; justify-content: space-evenly; align-content: center ">
+                                            <a href="{{ url('admin/post/' . $item->id . '/edit') }}"
+                                                class="btn btn-info btn-sm" style="margin: 2px">Update</a>
+                                            <a onclick="confirm('Are You Sure You Want To Delete??')"
+                                                href="{{ url('admin/post/' . $item->id . '/delete') }}"
+                                                class="btn btn-danger btn-sm">Delete</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

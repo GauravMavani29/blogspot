@@ -17,7 +17,7 @@
         <div class="card mb-3">
             <div class="card-header">
                 <i class="fas fa-table"></i> Add Category
-                <a href="{{ url('admin/category') }}" class="float-right btn btn-sm btn-dark">All Data</a>
+                <a href="{{ url('admin/category') }}" class="float-right btn btn-sm btn-dark">All Category</a>
             </div>
             <div class="card-body">
                 <div class="table-responsive">

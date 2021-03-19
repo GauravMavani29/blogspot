@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Admin;
+use App\Models\Comment;
+use App\Models\User;
+use App\Models\Post;
+
 class AdminController extends Controller
 {
     //
@@ -22,6 +26,8 @@ class AdminController extends Controller
         $userCheck = Admin::where(['username'=>$req->username, 'password'=>$req->password])->count();
         if($userCheck == 1)
         {
+            $adminData = Admin::where(['username'=>$req->username, 'password'=>$req->password])->first();
+            session(['adminData'=>$adminData]);
             return redirect('admin/dashboard');
         }else{
             return redirect('admin/login')->with('error','Invalid Username/password!!');
@@ -30,6 +36,31 @@ class AdminController extends Controller
 
     function dashboard()
     {
-        return view('backend.dashboard');
+        $data = Post::orderBy('id','desc')->get();
+        return view('backend.dashboard',["collection"=>$data]);
+    }
+
+    function comments()
+    {
+        $data = Comment::orderBy('id','desc')->get();
+        return view('comments.index',['collection'=>$data]);
+    }
+
+    function delete_comment($id)
+    {
+        Comment::where('id',$id)->delete();
+         return redirect('admin/comments');
+    }
+
+    function users()
+    {
+        $data = User::orderBy('id','desc')->get();
+        return view('Users.index',['collection'=>$data]);
+    }
+
+    function delete_user($id)
+    {
+        User::where('id',$id)->delete();
+         return redirect('admin/users');
     }
 }

@@ -1,6 +1,6 @@
 @extends('layout')
 @section('meta_desc', 'This is CategoryPage')
-@section('title', $title)
+@section('title', 'Category')
 @section('content')
     <div class="container-fluid">
 
@@ -17,7 +17,7 @@
         <div class="card mb-3">
             <div class="card-header">
                 <i class="fas fa-table"></i> Categories
-                <a href="{{ url('admin/category/create') }}" class="float-right btn btn-sm btn-dark">Add Data</a>
+                <a href="{{ url('admin/category/create') }}" class="float-right btn btn-sm btn-dark">Add Category</a>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -46,7 +46,7 @@
                                     <td>{{ $item->title }}</td>
                                     <td><img src="{{ asset('images') . '/' . $item->image }}" alt="" height="100px"
                                             width="100px"></td>
-                                    <td style="display: flex; justify-content: center;">
+                                    <td style="display: flex; justify-content: space-evenly;">
                                         <a href="{{ url('admin/category/' . $item->id . '/edit') }}"
                                             class="btn btn-info btn-sm" style="margin: 2px">Update</a>
                                         <a onclick="confirm('Are You Sure You Want To Delete??')"

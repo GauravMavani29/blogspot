@@ -45,7 +45,7 @@ class CategoryController extends Controller
         if($req->hasFile('cat_image'))
         {
             $image = $req->file('cat_image');
-            $reImage = time() . '.' . $image->getClientoriginalExtension();
+            $reImage = time().'.'.$image->getClientoriginalExtension();
             $dest = public_path('/Images');
             $image->move($dest,$reImage);
         }
@@ -100,7 +100,7 @@ class CategoryController extends Controller
         if($req->hasFile('cat_image'))
         {
             $image = $req->file('cat_image');
-            $reImage = time() . '.' . $image->getClientoriginalExtension();
+            $reImage = time().'.'.$image->getClientoriginalExtension();
             $dest = public_path('/Images');
             $image->move($dest,$reImage);
         }
@@ -114,7 +114,7 @@ class CategoryController extends Controller
         $category->image = $reImage;
         $category->save();
 
-        return redirect('/admin/category/'. $id .'/edit')->with('success','Data has been Updated');
+        return redirect('/admin/category/'.$id.'/edit')->with('success','Data has been Updated');
     }
 
     /**
