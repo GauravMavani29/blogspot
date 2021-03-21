@@ -44,6 +44,8 @@ class PostController extends Controller
             'title'=>'required',
             'detail'=>'required',
             'tags'=>'required',
+            'post_thumb'=>'dimensions:min_width=500,min_height=500',
+            'post_image'=>'dimensions:min_width=1024,min_height=1024'
         ]);
 
         if($req->has('post_thumb'))
@@ -112,6 +114,8 @@ class PostController extends Controller
             'title'=>'required',
             'detail'=>'required',
             'tags'=>'required',
+            'post_thumb'=>'dimensions:min_width=500,min_height=500',
+            'post_image'=>'dimensions:min_width=1024,min_height=1024'
         ]);
 
         if($req->has('post_thumb'))

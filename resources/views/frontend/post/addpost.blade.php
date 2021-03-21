@@ -105,7 +105,7 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             document.getElementById('logout-form').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
@@ -165,14 +165,26 @@
 
                         </tr>
                         <tr>
-                            <th>Thumbnail<span class="text-danger">*</span></th>
-                            <td><input type="file" name="post_thumb" />
+                            <th>Thumbnail<span class="text-danger">*</span>(500x500)</th>
+                            <td><input type="file" name="post_thumb" required />
+                                <span style="color: red">
+
+                                    @error('post_thumb')
+                                        {{ $message }}
+                                    @enderror
+                                </span>
                             </td>
 
                         </tr>
                         <tr>
-                            <th>Post Image<span class="text-danger">*</span></th>
-                            <td><input type="file" name="post_image" />
+                            <th>Post Image<span class="text-danger">*</span>(1024x1024)</th>
+                            <td><input type="file" name="post_image" required />
+                                <span style="color: red">
+
+                                    @error('post_image')
+                                        {{ $message }}
+                                    @enderror
+                                </span>
                             </td>
 
                         </tr>
@@ -180,7 +192,7 @@
                             <th>Detail</th>
                             <td>
                                 <textarea class="ckeditor form-control" name="detail">
-
+                                    {{ old('detail') }}
                                 </textarea>
                                 <span style="color: red">
 
@@ -193,7 +205,7 @@
                         <tr>
                             <th>Tags</th>
                             <td>
-                                <textarea name="tags" class="form-control"></textarea>
+                                <textarea name="tags" class="form-control"> {{ old('tags') }} </textarea>
                                 <span style="color: red">@error('tags')
                                         {{ $message }}
                                     @enderror</span>

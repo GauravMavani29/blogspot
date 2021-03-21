@@ -49,14 +49,26 @@
 
                             </tr>
                             <tr>
-                                <th>Thumbnail<span class="text-danger">*</span></th>
+                                <th>Thumbnail<span class="text-danger">*</span>(500x500)</th>
                                 <td><input type="file" name="post_thumb" required />
+                                    <span style="color: red">
+
+                                        @error('post_thumb')
+                                            {{ $message }}
+                                        @enderror
+                                    </span>
                                 </td>
 
                             </tr>
                             <tr>
-                                <th>Post Image<span class="text-danger">*</span></th>
+                                <th>Post Image<span class="text-danger">*</span>(1024x1024)</th>
                                 <td><input type="file" name="post_image" required />
+                                    <span style="color: red">
+
+                                        @error('post_image')
+                                            {{ $message }}
+                                        @enderror
+                                    </span>
                                 </td>
 
                             </tr>
@@ -65,7 +77,7 @@
                                 <td>
                                     <textarea class="ckeditor form-control" name="detail">
 
-                                            </textarea>
+                                                                    </textarea>
                                     <span style="color: red">
 
                                         @error('detail')

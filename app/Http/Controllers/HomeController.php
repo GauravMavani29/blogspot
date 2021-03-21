@@ -39,6 +39,8 @@ class HomeController extends Controller
             'title'=>'required',
             'detail'=>'required',
             'tags'=>'required',
+            'post_thumb'=>'dimensions:min_width=500,min_height=500',
+            'post_image'=>'dimensions:min_width=1024,min_height=1024'
         ]);
 
         if($req->has('post_thumb'))
@@ -83,6 +85,8 @@ class HomeController extends Controller
             'title'=>'required',
             'detail'=>'required',
             'tags'=>'required',
+            'post_thumb'=>'dimensions:min_width=500,min_height=500',
+            'post_image'=>'dimensions:min_width=1024,min_height=1024'
         ]);
 
         if($req->has('post_thumb'))
@@ -133,7 +137,10 @@ class HomeController extends Controller
     }
     function post() 
     {
-        Post::orderBy('id','desc')->first()->increment('views');
+        if(Post::orderBy('id','desc')->first())
+        {
+            Post::orderBy('id','desc')->first()->increment('views');
+        }
         $data = Post::orderBy('id','desc')->first();
         return view('frontend.post',['collection'=>$data]);
     }
@@ -145,7 +152,7 @@ class HomeController extends Controller
         return view('frontend.post',['collection'=>$data]);
     }
 
-    function save(Request $req,$id)
+    function save_comment(Request $req,$id)
     {
         $data = new Comment;
         $data->user_id = $req->user()->id;

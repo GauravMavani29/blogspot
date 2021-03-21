@@ -53,6 +53,7 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'profile' => ['required','dimensions:max_width=500','dimensions:max_height=500']
         ]);
     }
 
@@ -64,10 +65,20 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
+        if(request()->hasFile(key:'profile'))
+        {
+            $image = request()->file('profile');
+            $reThumbImage = time() . '.' . $image->getClientOriginalExtension();
+            $dest = public_path('./frontend/img/profile');
+            $image->move($dest,$reThumbImage);
+            $user->update(['profile'=>$reThumbImage]);
+        }
+        return $user;
     }
 }

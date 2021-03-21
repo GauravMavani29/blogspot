@@ -25,9 +25,23 @@
     <!-- Favicon-->
     <link rel="shortcut icon" href="favicon.png">
     <!-- Tweaks for older IEs-->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+    <style>
+        #commentscroll {
+            overflow-y: scroll;
+            height: 30rem;
+            scrollbar-width: none;
+            box-sizing: border-box;
+            border: 0.1rem solid rgb(236, 236, 236);
+            padding: 1rem;
+        }
+
+        #commentscroll::-webkit-scrollbar {
+            width: 0 !important;
+            display: none;
+
+        }
+
+    </style>
 </head>
 
 <body>
@@ -91,7 +105,7 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             document.getElementById('logout-form').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
@@ -128,7 +142,9 @@
                             <h1>{{ $collection->title }}<a href="#"><i class="fa fa-bookmark-o"></i></a></h1>
                             <div class="post-footer d-flex align-items-center flex-column flex-sm-row"><a href="#"
                                     class="author d-flex align-items-center flex-wrap">
-                                    <div class="avatar"><img src="img/avatar-1.jpg" alt="..." class="img-fluid"></div>
+                                    <div class="avatar"><img
+                                            src="{{ asset('frontend/img/profile/' . $collection->user->profile) }}"
+                                            alt="..." class="img-fluid"></div>
                                     <div class="title"><span>{{ $collection->user->name }}</span></div>
                                 </a>
                                 <div class="d-flex align-items-center flex-wrap">
@@ -185,13 +201,14 @@
                                     <h3 class="h6">Post Comments<span
                                             class="no-of-comments">({{ count($collection->comments) }})</span></h3>
                                 </header>
-                                @if ($collection->comments)
-                                    @foreach ($collection->comments as $item)
-                                        <div class="comment">
+                                <div class="comment" id="commentscroll">
+                                    @if ($collection->comments)
+                                        @foreach ($collection->comments as $item)
                                             <div class="comment-header d-flex justify-content-between">
                                                 <div class="user d-flex align-items-center">
-                                                    <div class="image"><img src="img/user.svg" alt="..."
-                                                            class="img-fluid rounded-circle">
+                                                    <div class="image"><img
+                                                            src="{{ asset('frontend/img/profile/' . $item->user->profile) }}"
+                                                            alt="..." class="img-fluid rounded-circle">
                                                     </div>
                                                     <div class="title">
                                                         @if ($item->user_id == 0)
@@ -207,9 +224,9 @@
                                                 <p>{{ $item->comment }}
                                                 </p>
                                             </div>
-                                        </div>
-                                    @endforeach
-                                @endif
+                                        @endforeach
+                                    @endif
+                                </div>
                             </div>
 
                         </div>
@@ -265,7 +282,7 @@
                     @if ($categories)
                         @foreach ($categories as $item)
                             <div class="item d-flex justify-content-between"><a
-                                    href="#">{{ $item->title }}</a><span>{{ count($item->posts) }}</span>
+                                    href="{{ url('frontend/category-blog/' . $item->id) }}">{{ $item->title }}</a><span>{{ count($item->posts) }}</span>
                             </div>
                         @endforeach
                     @endif

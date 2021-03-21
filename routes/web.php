@@ -62,7 +62,7 @@ Route::get('/frontend/blog',[HomeController::class, 'blog']);
 Route::get('/frontend/category-blog/{id}',[HomeController::class, 'category_blog']);
 Route::get('/frontend/post',[HomeController::class, 'post']);
 Route::get('/frontend/post/{id}',[HomeController::class, 'postmain']);
-Route::post('save-comment/{id}',[HomeController::class,'save']);
+Route::post('save-comment/{id}',[HomeController::class,'save_comment']);
 Route::get('/testing',function()
 {
     return view('test');

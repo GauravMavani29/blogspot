@@ -104,7 +104,7 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             document.getElementById('logout-form').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
@@ -180,7 +180,7 @@
 
                             </tr>
                             <tr>
-                                <th>Thumbnail<span class="text-danger">*</span></th>
+                                <th>Thumbnail<span class="text-danger">*</span>(500x500)</th>
 
                                 <td>
                                     <p>
@@ -189,11 +189,17 @@
                                             height="60px" width="60px">
                                     </p>
                                     <input type="file" name="post_thumb" />
+                                    <span style="color: red">
+
+                                        @error('post_thumb')
+                                            {{ $message }}
+                                        @enderror
+                                    </span>
                                 </td>
 
                             </tr>
                             <tr>
-                                <th>Post Image<span class="text-danger">*</span></th>
+                                <th>Post Image<span class="text-danger">*</span>(1024x1024)</th>
                                 <td>
                                     <p>
                                         <input type="hidden" value="{{ $data->full_img }}" name="cur_postimage" />
@@ -201,6 +207,12 @@
                                             alt="" height="60px" width="60px">
                                     </p>
                                     <input type="file" name="post_image" />
+                                    <span style="color: red">
+
+                                        @error('post_image')
+                                            {{ $message }}
+                                        @enderror
+                                    </span>
                                 </td>
 
                             </tr>

@@ -92,7 +92,7 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             document.getElementById('logout-form').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
@@ -131,15 +131,17 @@
                                         <div class="post-meta d-flex justify-content-between">
                                             <div class="date meta-last">{{ $item->created_at }}</div>
                                             <div class="category"><a href="#">{{ $item->tags }}</a></div>
-                                        </div><a href="post.html">
+                                        </div>
+                                        <a href="post.html">
                                             <h3 class="h4">{{ $item->title }}</h3>
                                         </a>
                                         <p class="text-muted">{!! Str::limit($item->detail, 60) !!}</p>
                                         <footer class="post-footer d-flex align-items-center">
                                             <a href="{{ url('frontend/post/' . $item->id) }}"
                                                 class="author d-flex align-items-center flex-wrap">
-                                                <div class="avatar"><img src="img/avatar-3.jpg" alt="..."
-                                                        class="img-fluid">
+                                                <div class="avatar"><img
+                                                        src="{{ asset('frontend/img/profile/' . $item->user->profile) }}"
+                                                        alt="..." class="img-fluid">
                                                 </div>
                                                 <div class="title"><span>{{ $item->user->name }}</span></div>
                                             </a>
