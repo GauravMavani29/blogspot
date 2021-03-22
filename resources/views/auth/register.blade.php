@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('icons', '/register.png')
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
@@ -81,18 +82,25 @@
                                     @enderror
                                 </div>
                             </div>
+                            <div class="form-group row">
+                                <label for="profile"
+                                    class="col-md-4 col-form-label text-md-right">{{ __('Verify') }}</label>
 
-                            <div class="form-group row mb-0">
-                                <div class="col-md-6 offset-md-4">
-                                    <button type="submit" class="btn btn-primary">
-                                        {{ __('Register') }}
-                                    </button>
-                                </div>
+                                <div class="g-recaptcha col-md-4" data-sitekey="6LdirIgaAAAAAK2mGrR8e-HH0qVid05fwwYfT2gJ"
+                                    aria-required="true"></div>
                             </div>
-                        </form>
                     </div>
+                    <div class="form-group row mb-0">
+                        <div class="col-md-6 offset-md-4">
+                            <button type="submit" class="btn btn-primary">
+                                {{ __('Register') }}
+                            </button>
+                        </div>
+                    </div>
+                    </form>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 @endsection

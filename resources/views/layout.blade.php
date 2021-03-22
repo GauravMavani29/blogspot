@@ -33,13 +33,7 @@
     <!-- Custom styles for this template-->
     <link href="{{ asset('backend') }}/css/sb-admin.css" rel="stylesheet">
 
-    {{-- @if (!Session::has('adminData'))
-        <script type="text/javascript">
-            window.location.href = "{{ url('admin/login') }}";
-
-        </script>
-    @endif --}}
-
+    <link rel="icon" type="image/png" href="{{ asset('icon') }}@yield('icons')" />
 </head>
 @if (!session()->has('adminData'))
     <script>

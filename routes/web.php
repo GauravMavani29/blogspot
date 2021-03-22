@@ -28,6 +28,9 @@ Route::get('/admin/dashboard',[AdminController::class, 'dashboard']);
 //category
 Route::resource('admin/category', CategoryController::class);
 Route::get('/admin/category/{id}/delete',[CategoryController::class, 'destroy']);
+Route::get('/admin/category/allpost/{id}',[CategoryController::class, 'allpost']);
+
+
 //post  
 Route::get('/admin/post/{id}/delete',[PostController::class, 'destroy']);
 Route::resource('admin/post', PostController::class);
@@ -35,10 +38,12 @@ Route::resource('admin/post', PostController::class);
 //comments
 Route::get('/admin/comments',[AdminController::class, 'comments']);
 Route::get('/admin/comments/delete/{id}',[AdminController::class, 'delete_comment']);
+Route::get('/admin/post/comments/{id}',[AdminController::class, 'all_comment']);
 
 //users
 Route::get('/admin/users',[AdminController::class, 'users']);
 Route::get('/admin/users/delete/{id}',[AdminController::class, 'delete_user']);
+Route::get('/admin/users/post/{id}',[AdminController::class, 'allpost']);
 
 //logout
 Route::get('/admin/logout',function(){
@@ -52,9 +57,12 @@ Route::post('admin/setting',[SettingController::class,'save_setting']);
 //Frontend
 Route::get('/',[HomeController::class, 'index']);
 Route::get('/frontend/post/addpost',[HomeController::class, 'addpost']);
-Route::get('/frontend/managepost',[HomeController::class, 'managepost']);
+Route::get('/frontend/post/managepost',[HomeController::class, 'managepost']);
+Route::get('/frontend/post/postcomment',[HomeController::class, 'postcomment']);
 Route::get('/frontend/post/editpost/{id}',[HomeController::class, 'editpost']);
 Route::put('/frontend/post/updatepost/{id}',[HomeController::class, 'updatepost']);
+Route::get('/frontend/post/deletepost/{id}',[HomeController::class, 'deletepost']);
+Route::get('/frontend/post/comment/{id}',[HomeController::class, 'all_comment']);
 
 
 Route::post('/frontend/savepost',[HomeController::class, 'savepost']);
@@ -71,4 +79,5 @@ Route::get('/testing',function()
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 

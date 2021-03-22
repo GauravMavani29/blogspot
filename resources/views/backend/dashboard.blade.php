@@ -1,6 +1,7 @@
 @extends('layout')
 @section('title', 'Dashboard')
 @section('meta_desc', 'This is Dashboard')
+@section('icons', '/dashboard.png')
 @section('content')
     <div id="content-wrapper">
 
@@ -87,7 +88,7 @@
             <div class="card mb-3">
                 <div class="card-header">
                     <i class="fas fa-table"></i>
-                    Recent Posts
+                    Admin's Post
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -123,12 +124,25 @@
                                                 height="100px" width="100px"></td>
                                         <td><img src="{{ asset('Post images/Main Images') . '/' . $item->full_img }}"
                                                 alt="" height="100px" width="100px"></td>
-                                        <td style="display: flex; justify-content: space-evenly; align-content: center ">
-                                            <a href="{{ url('admin/post/' . $item->id . '/edit') }}"
-                                                class="btn btn-info btn-sm" style="margin: 2px">Update</a>
-                                            <a onclick="confirm('Are You Sure You Want To Delete??')"
-                                                href="{{ url('admin/post/' . $item->id . '/delete') }}"
-                                                class="btn btn-danger btn-sm">Delete</a>
+                                        <td
+                                            style="display: flex; flex-direction: column; justify-content: center; align-items: center ">
+                                            <div style="margin: 5px">
+
+                                                <a href="{{ url('admin/post/comments/' . $item->id) }}"
+                                                    class="btn btn-secondary btn-sm">Comments</a>
+                                            </div>
+                                            <div style="margin: 5px">
+
+                                                <a href="{{ url('admin/post/' . $item->id . '/edit') }}"
+                                                    class="btn btn-info btn-sm">Update</a>
+                                            </div>
+                                            <div style="margin: 5px">
+
+                                                <a onclick="confirm('Are You Sure You Want To Delete??')"
+                                                    href="{{ url('admin/post/' . $item->id . '/delete') }}"
+                                                    class="btn btn-danger btn-sm">Delete</a>
+                                            </div>
+
                                         </td>
                                     </tr>
                                 @endforeach
@@ -136,22 +150,7 @@
                         </table>
                     </div>
                 </div>
-                <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
             </div>
-
         </div>
-        <!-- /.container-fluid -->
 
-        <!-- Sticky Footer -->
-        <footer class="sticky-footer">
-            <div class="container my-auto">
-                <div class="copyright text-center my-auto">
-                    <span>Copyright © Your Website 2018</span>
-                </div>
-            </div>
-        </footer>
-
-    </div>
-    <!-- /.content-wrapper -->
-
-@endsection
+    @endsection

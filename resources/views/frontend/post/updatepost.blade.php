@@ -104,7 +104,7 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             document.getElementById('logout-form').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
@@ -114,15 +114,12 @@
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                            </li>
-                            <li class="nav-item">
                                 <a class="nav-link"
                                     href="{{ url('/frontend/post/addpost') }}">{{ __('Add Post') }}</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link active"
-                                    href="{{ url('/frontend/managepost') }}">{{ __('All Post') }}</a>
+                                    href="{{ url('/frontend/post/managepost') }}">{{ __('All Post') }}</a>
                             </li>
                         @endguest
                     </ul>

@@ -1,6 +1,7 @@
 @extends('layout')
 @section('meta_desc', 'This is CategoryPage')
 @section('title', 'Category')
+@section('icons', '/category.png')
 @section('content')
     <div class="container-fluid">
 
@@ -9,7 +10,7 @@
             <li class="breadcrumb-item">
                 <a href="{{ url('admin/dashboard') }}">Dashboard</a>
             </li>
-            <li class="breadcrumb-item active">All Category</li>
+            <li class="breadcrumb-item active">All Categories</li>
         </ol>
 
 
@@ -47,11 +48,19 @@
                                     <td><img src="{{ asset('images') . '/' . $item->image }}" alt="" height="100px"
                                             width="100px"></td>
                                     <td style="display: flex; justify-content: space-evenly;">
-                                        <a href="{{ url('admin/category/' . $item->id . '/edit') }}"
-                                            class="btn btn-info btn-sm" style="margin: 2px">Update</a>
-                                        <a onclick="confirm('Are You Sure You Want To Delete??')"
-                                            href="{{ url('admin/category/' . $item->id . '/delete') }}"
-                                            class="btn btn-danger btn-sm">Delete</a>
+                                        <div>
+                                            <a href="{{ url('admin/category/' . $item->id . '/edit') }}"
+                                                class="btn btn-info btn-sm" style="margin: 2px">Update</a>
+                                        </div>
+                                        <div>
+                                            <a onclick="confirm('Are You Sure You Want To Delete??')"
+                                                href="{{ url('admin/category/' . $item->id . '/delete') }}"
+                                                class="btn btn-danger btn-sm">Delete</a>
+                                        </div>
+                                        <div>
+                                            <a href="{{ url('admin/category/allpost/' . $item->id) }}"
+                                                class="btn btn-warning btn-sm" style="color: white">All Posts</a>
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach
@@ -59,7 +68,6 @@
                     </table>
                 </div>
             </div>
-            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
         </div>
 
     </div>

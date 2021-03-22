@@ -1,6 +1,7 @@
 @extends('layout')
-@section('title', 'Add Category')
-@section('meta_desc', 'This is Add Category Page')
+@section('title', 'Add Post')
+@section('meta_desc', 'This is Add Post Page')
+@section('icons', '/post.png')
 @section('content')
     <div class="container-fluid">
 
@@ -49,7 +50,7 @@
 
                             </tr>
                             <tr>
-                                <th>Thumbnail<span class="text-danger">*</span>(500x500)</th>
+                                <th>Thumbnail<span class="text-danger">*</span>(540x540)</th>
                                 <td><input type="file" name="post_thumb" required />
                                     <span style="color: red">
 
@@ -61,7 +62,7 @@
 
                             </tr>
                             <tr>
-                                <th>Post Image<span class="text-danger">*</span>(1024x1024)</th>
+                                <th>Post Image<span class="text-danger">*</span>(720x720)</th>
                                 <td><input type="file" name="post_image" required />
                                     <span style="color: red">
 
@@ -77,7 +78,7 @@
                                 <td>
                                     <textarea class="ckeditor form-control" name="detail">
 
-                                                                    </textarea>
+                                                                                                    </textarea>
                                     <span style="color: red">
 
                                         @error('detail')

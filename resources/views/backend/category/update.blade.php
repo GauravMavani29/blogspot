@@ -1,6 +1,7 @@
 @extends('layout')
 @section('title', 'Update Category')
 @section('meta_desc', 'This is UpdateCategory Page')
+@section('icons', '/category.png')
 @section('content')
     <div class="container-fluid">
 

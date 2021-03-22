@@ -39,8 +39,8 @@ class HomeController extends Controller
             'title'=>'required',
             'detail'=>'required',
             'tags'=>'required',
-            'post_thumb'=>'dimensions:min_width=500,min_height=500',
-            'post_image'=>'dimensions:min_width=1024,min_height=1024'
+            'post_thumb'=>'dimensions:min_width=540,min_height=540',
+            'post_image'=>'dimensions:min_width=720,min_height=720'
         ]);
 
         if($req->has('post_thumb'))
@@ -85,8 +85,8 @@ class HomeController extends Controller
             'title'=>'required',
             'detail'=>'required',
             'tags'=>'required',
-            'post_thumb'=>'dimensions:min_width=500,min_height=500',
-            'post_image'=>'dimensions:min_width=1024,min_height=1024'
+            'post_thumb'=>'dimensions:min_width=540,min_height=540',
+            'post_image'=>'dimensions:min_width=720,min_height=720'
         ]);
 
         if($req->has('post_thumb'))
@@ -118,6 +118,11 @@ class HomeController extends Controller
 
         return redirect('frontend/post/addpost')->with('success','Post Uploaded Successfully!!');
     }
+
+    function deletepost($id){
+        Post::find($id)->delete();
+        return redirect('frontend/post/managepost');
+    }
     function blog(Request $req)
     {
         if($req->has('que'))
@@ -148,7 +153,7 @@ class HomeController extends Controller
     function postmain($id)
     {
         Post::find($id)->increment('views');
-        $data = Post::find($id);
+        $data = Post::find($id);    
         return view('frontend.post',['collection'=>$data]);
     }
 
@@ -161,5 +166,23 @@ class HomeController extends Controller
         $data->save();
 
         return redirect('frontend/post/'.$id)->with('success','Comment Added Successfully');
+    }
+
+    function all_comment(Request $req,$id)
+    {
+        // $data = Comment::where('post_id',$id)->where('user_id',$req->user()->id)->get();
+        $userdata = Post::find($id);
+        if(!$userdata)
+        {
+            return view('frontend.page.pageerror');
+        }
+        if($userdata->user_id == $req->user()->id)
+        {
+            $data = Comment::where([['post_id',$id],['user_id',$req->user()->id]])->get();
+            return view('frontend.post.postcomment',["collection"=>$data]);
+        }
+        else{
+            return view('frontend.page.pageerror');
+        }
     }
 }

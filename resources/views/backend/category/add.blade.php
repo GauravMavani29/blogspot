@@ -1,6 +1,7 @@
 @extends('layout')
 @section('title', 'Add Category')
 @section('meta_desc', 'This is Add Category Page')
+@section('icons', '/category.png')
 @section('content')
     <div class="container-fluid">
 
@@ -58,7 +59,6 @@
                     </form>
                 </div>
             </div>
-            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
         </div>
 
     </div>

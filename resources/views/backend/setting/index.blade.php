@@ -1,6 +1,7 @@
 @extends('layout')
 @section('title', 'Add Settings')
 @section('meta_desc', 'This is Add Settings Page')
+@section('icons', '/setting.png')
 @section('content')
     <div class="container-fluid">
 

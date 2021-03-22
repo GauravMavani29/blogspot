@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="{{ asset('frontend') }}/css/custom.css">
     <!-- Favicon-->
     <link rel="shortcut icon" href="favicon.png">
+    <link rel="icon" type="image/png" href="{{ asset('icon') }}/home.png" />
     <!-- Tweaks for older IEs-->
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -97,7 +98,7 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                            document.getElementById('logout-form').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
@@ -111,7 +112,8 @@
                                     href="{{ url('/frontend/post/addpost') }}">{{ __('Add Post') }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/frontend/managepost') }}">{{ __('All Post') }}</a>
+                                <a class="nav-link"
+                                    href="{{ url('/frontend/post/managepost') }}">{{ __('All Post') }}</a>
                             </li>
                         @endguest
                     </ul>
@@ -173,8 +175,9 @@
                                             <footer class="post-footer d-flex align-items-center">
                                                 <a href="{{ url('frontend/post/' . $item->id) }}"
                                                     class="author d-flex align-items-center flex-wrap">
-                                                    <div class="avatar"><img src="img/avatar-3.jpg" alt="..."
-                                                            class="img-fluid">
+                                                    <div class="avatar"><img
+                                                            src="{{ asset('frontend/img/profile/' . $item->user->profile) }}"
+                                                            alt="..." class="img-fluid">
                                                     </div>
                                                     <div class="title"><span>{{ $item->user->name }}</span></div>
                                                 </a>
@@ -209,8 +212,8 @@
                                                     href="{{ url('frontend/post/' . $item->id) }}"
                                                     class="author d-flex align-items-center flex-wrap">
                                                     <div class="avatar">
-                                                        <img src="{{ asset('frontend') }}/img/avatar-1.jpg" alt="..."
-                                                            class="img-fluid">
+                                                        <img src="{{ asset('frontend/img/profile/' . $item->user->profile) }}"
+                                                            alt="..." class="img-fluid">
                                                     </div>
                                                     <div class="title"><span>{{ $item->user->name }}</span></div>
                                                 </a>

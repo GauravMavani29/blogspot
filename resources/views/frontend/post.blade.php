@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="{{ asset('frontend') }}/css/custom.css">
     <!-- Favicon-->
     <link rel="shortcut icon" href="favicon.png">
+    <link rel="icon" type="image/png" href="{{ asset('icon') }}/post.png" />
     <!-- Tweaks for older IEs-->
     <style>
         #commentscroll {
@@ -105,7 +106,7 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             document.getElementById('logout-form').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
@@ -118,7 +119,8 @@
                                 <a class="nav-link" href="{{ url('frontend/post/addpost') }}">{{ __('Add Post') }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/frontend/managepost') }}">{{ __('All Post') }}</a>
+                                <a class="nav-link"
+                                    href="{{ url('/frontend/post/managepost') }}">{{ __('All Post') }}</a>
                             </li>
                         @endguest
                     </ul>
@@ -131,108 +133,117 @@
         <div class="row">
             <main class="post blog-post col-lg-8">
                 <div class="container">
-                    <div class="post-single">
-                        <div class="post-thumbnail"><img
-                                src="{{ asset('Post images/Main images') . '/' . $collection->full_img }}" alt="..."
-                                class="img-fluid"></div>
-                        <div class="post-details">
-                            <div class="post-meta d-flex justify-content-between">
-                                <div class="category"><a href="#">Business</a><a href="#">Financial</a></div>
-                            </div>
-                            <h1>{{ $collection->title }}<a href="#"><i class="fa fa-bookmark-o"></i></a></h1>
-                            <div class="post-footer d-flex align-items-center flex-column flex-sm-row"><a href="#"
-                                    class="author d-flex align-items-center flex-wrap">
-                                    <div class="avatar"><img
-                                            src="{{ asset('frontend/img/profile/' . $collection->user->profile) }}"
-                                            alt="..." class="img-fluid"></div>
-                                    <div class="title"><span>{{ $collection->user->name }}</span></div>
-                                </a>
-                                <div class="d-flex align-items-center flex-wrap">
-                                    <div class="date"><i class="icon-clock"></i> {{ $collection->created_at }}</div>
-                                    <div class="views"><i class="icon-eye"></i> {{ $collection->views }}</div>
-                                    <div class="comments meta-last"><i
-                                            class="icon-comment"></i>{{ count($collection->comments) }}</div>
+                    @if ($collection)
+                        <div class="post-single">
+                            <div class="post-thumbnail"><img
+                                    src="{{ asset('Post images/Main images') . '/' . $collection->full_img }}"
+                                    alt="..." class="img-fluid"></div>
+                            <div class="post-details">
+                                <div class="post-meta d-flex justify-content-between">
+                                    <div class="category"><a href="#">Business</a><a href="#">Financial</a></div>
                                 </div>
-                            </div>
-                            <div class="post-body">
-                                {{-- <p class="lead">{{ $collection->detail }}</p> --}}
-                                <p class="lead">{!! $collection->detail !!}</p>
-                            </div>
-                            <div class="post-tags"><a href="#" class="tag">#Business</a><a href="#"
-                                    class="tag">#Tricks</a><a href="#" class="tag">#Financial</a><a href="#"
-                                    class="tag">#Economy</a>
-                            </div>
-
-                            @auth
-                                <div class="add-comment">
-                                    <header>
-                                        <h3 class="h6">Leave a reply</h3>
-                                        <p class="text-success">
-                                            @if (Session::has('success'))
-                                                {{ session('success') }}@endif
-                                        </p>
-                                    </header>
-                                    <form action="{{ url('save-comment/' . $collection->id) }}" class="commenting-form"
-                                        method="POST">
-                                        @csrf
-                                        <div class="row">
-                                            <div class="form-group col-md-12">
-                                                <textarea name="usercomment" id="usercomment"
-                                                    placeholder="Type your comment" class="form-control"></textarea>
-                                            </div>
-                                            <div class="form-group col-md-12">
-                                                <button type="submit" class="btn btn-secondary">Submit Comment</button>
-                                            </div>
+                                <h1>{{ $collection->title }}<a href="#"><i class="fa fa-bookmark-o"></i></a></h1>
+                                <div class="post-footer d-flex align-items-center flex-column flex-sm-row"><a href="#"
+                                        class="author d-flex align-items-center flex-wrap">
+                                        <div class="avatar"><img
+                                                src="{{ asset('frontend/img/profile/' . $collection->user->profile) }}"
+                                                alt="..." class="img-fluid"></div>
+                                        <div class="title"><span>{{ $collection->user->name }}</span></div>
+                                    </a>
+                                    <div class="d-flex align-items-center flex-wrap">
+                                        <div class="date"><i class="icon-clock"></i> {{ $collection->created_at }}
                                         </div>
-                                    </form>
+                                        <div class="views"><i class="icon-eye"></i> {{ $collection->views }}</div>
+                                        <div class="comments meta-last"><i
+                                                class="icon-comment"></i>{{ count($collection->comments) }}</div>
+                                    </div>
                                 </div>
-                            @else
-                                <div class="form-group col-md-12">
-                                    <a class="btn btn-secondary" style="color: aliceblue"
-                                        href="{{ route('login') }}">Login</a>
+                                <div class="post-body">
+                                    {{-- <p class="lead">{{ $collection->detail }}</p> --}}
+                                    <p class="lead">{!! $collection->detail !!}</p>
                                 </div>
-                                <div class="form-group col-md-12">
-                                    <a class="btn btn-secondary" style="color: aliceblue"
-                                        href="{{ route('register') }}">Register</a>
+                                <div class="post-tags"><a href="#" class="tag">#Business</a><a href="#"
+                                        class="tag">#Tricks</a><a href="#" class="tag">#Financial</a><a href="#"
+                                        class="tag">#Economy</a>
                                 </div>
-                            @endauth
-                            <div class="post-comments">
-                                <header>
-                                    <h3 class="h6">Post Comments<span
-                                            class="no-of-comments">({{ count($collection->comments) }})</span></h3>
-                                </header>
-                                <div class="comment" id="commentscroll">
-                                    @if ($collection->comments)
-                                        @foreach ($collection->comments as $item)
-                                            <div class="comment-header d-flex justify-content-between">
-                                                <div class="user d-flex align-items-center">
-                                                    <div class="image"><img
-                                                            src="{{ asset('frontend/img/profile/' . $item->user->profile) }}"
-                                                            alt="..." class="img-fluid rounded-circle">
-                                                    </div>
-                                                    <div class="title">
-                                                        @if ($item->user_id == 0)
-                                                            <strong>Admin</strong>
-                                                        @else
-                                                            <strong>{{ $item->user->name }}</strong>
-                                                        @endif
-                                                        <span class="date">{{ $item->created_at }}</span>
-                                                    </div>
+
+                                @auth
+                                    <div class="add-comment">
+                                        <header>
+                                            <h3 class="h6">Leave a reply</h3>
+                                            <p class="text-success">
+                                                @if (Session::has('success'))
+                                                    {{ session('success') }}@endif
+                                            </p>
+                                        </header>
+                                        <form action="{{ url('save-comment/' . $collection->id) }}"
+                                            class="commenting-form" method="POST">
+                                            @csrf
+                                            <div class="row">
+                                                <div class="form-group col-md-12">
+                                                    <textarea name="usercomment" id="usercomment"
+                                                        placeholder="Type your comment" class="form-control"></textarea>
+                                                </div>
+                                                <div class="form-group col-md-12">
+                                                    <button type="submit" class="btn btn-secondary">Submit Comment</button>
                                                 </div>
                                             </div>
-                                            <div class="comment-body">
-                                                <p>{{ $item->comment }}
-                                                </p>
-                                            </div>
-                                        @endforeach
-                                    @endif
+                                        </form>
+                                    </div>
+                                @else
+                                    <div class="form-group col-md-12">
+                                        <a class="btn btn-secondary" style="color: aliceblue"
+                                            href="{{ route('login') }}">Login</a>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <a class="btn btn-secondary" style="color: aliceblue"
+                                            href="{{ route('register') }}">Register</a>
+                                    </div>
+                                @endauth
+                                <div class="post-comments">
+                                    <header>
+                                        <h3 class="h6">Post Comments<span
+                                                class="no-of-comments">({{ count($collection->comments) }})</span>
+                                        </h3>
+                                    </header>
+                                    <div class="comment" id="commentscroll">
+                                        @if ($collection->comments)
+                                            @foreach ($collection->comments as $item)
+                                                <div class="comment-header d-flex justify-content-between">
+                                                    <div class="user d-flex align-items-center">
+                                                        <div class="image"><img
+                                                                src="{{ asset('frontend/img/profile/' . $item->user->profile) }}"
+                                                                alt="..." class="img-fluid rounded-circle">
+                                                        </div>
+                                                        <div class="title">
+                                                            @if ($item->user_id == 0)
+                                                                <strong>Admin</strong>
+                                                            @else
+                                                                <strong>{{ $item->user->name }}</strong>
+                                                            @endif
+                                                            <span class="date">{{ $item->created_at }}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="comment-body">
+                                                    <p>{{ $item->comment }}
+                                                    </p>
+                                                </div>
+                                            @endforeach
+                                        @endif
+                                    </div>
                                 </div>
-                            </div>
 
+                            </div>
                         </div>
-                    </div>
+                    @else
+                        <div class="alert alert-danger col-lg-3">
+                            No Post Found
+                        </div>
+                    @endif
                 </div>
             </main>
+
             <aside class="col-lg-4">
                 <!-- Widget [Search Bar Widget]-->
                 <div class="widget search">

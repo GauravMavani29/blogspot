@@ -1,6 +1,7 @@
 @extends('layout')
 @section('meta_desc', 'This is Comments Page')
 @section('title', 'Comments')
+@section('icons', '/comment.png')
 @section('content')
     <div class="container-fluid">
 
@@ -9,15 +10,14 @@
             <li class="breadcrumb-item">
                 <a href="{{ url('admin/dashboard') }}">Dashboard</a>
             </li>
-            <li class="breadcrumb-item active">Comments</li>
+            <li class="breadcrumb-item active">All Comments</li>
         </ol>
 
 
         <!-- DataTables Example -->
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fas fa-table"></i> Posts
-                <a href="{{ url('admin/post/create') }}" class="float-right btn btn-sm btn-dark">Add Post</a>
+                <i class="fas fa-comments"></i> All Comments
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -25,7 +25,8 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>User</th>
+                                <th>Post Title</th>
+                                <th>Username</th>
                                 <th>Comment</th>
                                 <th>Actions</th>
 
@@ -34,7 +35,8 @@
                         <tfoot>
                             <tr>
                                 <th>#</th>
-                                <th>User</th>
+                                <th>Post Title</th>
+                                <th>Username</th>
                                 <th>Comment</th>
                                 <th>Actions</th>
                             </tr>
@@ -45,16 +47,19 @@
                                 <tr>
                                     <td>{{ $item->id }}</td>
                                     <td>
+                                        {{ $item->post->title }}
+                                    </td>
+                                    <td>
                                         @if ($item->id)
 
-                                            {{ $item->user->email }}
+                                            {{ $item->user->name }}
 
                                         @else
                                             nothing
-
                                         @endif
 
                                     </td>
+
                                     <td>
 
                                         {{ $item->comment }}

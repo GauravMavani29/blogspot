@@ -1,6 +1,7 @@
 @extends('layout')
-@section('meta_desc', 'This is Comments Page')
-@section('title', 'Comments')
+@section('meta_desc', 'This is Users Page')
+@section('title', 'Users')
+@section('icons', '/user.png')
 @section('content')
     <div class="container-fluid">
 
@@ -16,7 +17,7 @@
         <!-- DataTables Example -->
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fas fa-table"></i> Posts
+                <i class="fas fa-users"></i> Users
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -47,15 +48,21 @@
                                         {{ $item->name }}
                                     </td>
                                     <td>
-
                                         {{ $item->email }}
-
                                     </td>
 
                                     <td style="display: flex; justify-content: space-evenly; align-content: center ">
-                                        <a onclick="confirm('Are You Sure You Want To Delete??')"
-                                            href="{{ url('admin/users/delete/' . $item->id) }}"
-                                            class="btn btn-danger btn-sm">Delete</a>
+                                        @if (!($item->id == 0))
+                                            <div>
+                                                <a href="{{ url('admin/users/post/' . $item->id) }}"
+                                                    class="btn btn-warning btn-sm" style="color: white">All Post</a>
+                                            </div>
+                                            <div>
+                                                <a onclick="confirm('Are You Sure You Want To Delete??')"
+                                                    href="{{ url('admin/users/delete/' . $item->id) }}"
+                                                    class="btn btn-danger btn-sm">Delete</a>
+                                            </div>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach

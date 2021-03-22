@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Post;
 class CategoryController extends Controller
 {
     /**
@@ -128,5 +129,11 @@ class CategoryController extends Controller
         //
         Category::find($id)->delete();
         return redirect('admin/category');
+    }
+
+    public function allpost($id)
+    {
+        $data = Post::where('cat_id',$id)->get();
+        return view('backend.post.index',["collection"=>$data]);
     }
 }

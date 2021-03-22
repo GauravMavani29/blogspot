@@ -1,6 +1,7 @@
 @extends('layout')
 @section('title', 'Update Post')
 @section('meta_desc', 'This is UpdatePost Page')
+@section('icons', '/post.png')
 @section('content')
     <div class="container-fluid">
 
@@ -97,8 +98,8 @@
                                 <th>Detail</th>
                                 <td>
                                     <textarea class="ckeditor form-control" name="detail">
-                                                                                                    {{ $data->detail }}
-                                                                                                </textarea>
+                                                                                                        {{ $data->detail }}
+                                                                                                    </textarea>
                                     <span style="color: red">
 
                                         @error('detail')

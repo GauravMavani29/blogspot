@@ -1,6 +1,7 @@
 @extends('layout')
-@section('meta_desc', 'This is CategoryPage')
-@section('title', 'Category')
+@section('meta_desc', 'This is Post')
+@section('title', 'Post')
+@section('icons', '/post.png')
 @section('content')
     <div class="container-fluid">
 
@@ -11,7 +12,6 @@
             </li>
             <li class="breadcrumb-item active">All Post</li>
         </ol>
-
 
         <!-- DataTables Example -->
         <div class="card mb-3">
@@ -25,18 +25,22 @@
                         <thead>
                             <tr>
                                 <th>#</th>
+                                <th>Username</th>
                                 <th>Category</th>
                                 <th>Title</th>
-                                <th>Image</th>
+                                <th>Thumb Image</th>
+                                <th>Full Image</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
                                 <th>#</th>
+                                <th>Username</th>
                                 <th>Category</th>
                                 <th>Title</th>
-                                <th>Image</th>
+                                <th>Thumb Image</th>
+                                <th>Full Image</th>
                                 <th>Action</th>
                             </tr>
                         </tfoot>
@@ -44,25 +48,38 @@
 
                             @foreach ($collection as $item)
                                 <tr>
+
                                     <td>{{ $item->id }}</td>
+                                    <td>{{ $item->user->name }}</td>
                                     <td>{{ $item->cat_id }}</td>
                                     <td>{{ $item->title }}</td>
                                     <td><img src="{{ asset('Post images/Thumbnail') . '/' . $item->thumb }}" alt=""
                                             height="100px" width="100px"></td>
-                                    <td style="display: flex; justify-content: space-evenly; align-content: center ">
-                                        <a href="{{ url('admin/post/' . $item->id . '/edit') }}"
-                                            class="btn btn-info btn-sm" style="margin: 2px">Update</a>
-                                        <a onclick="confirm('Are You Sure You Want To Delete??')"
-                                            href="{{ url('admin/post/' . $item->id . '/delete') }}"
-                                            class="btn btn-danger btn-sm">Delete</a>
+                                    <td><img src="{{ asset('Post images/Main Images') . '/' . $item->thumb }}" alt=""
+                                            height="100px" width="100px"></td>
+                                    <td
+                                        style="display: flex; flex-direction: column; justify-content: center; align-items: center ">
+                                        <div style="margin: 5px;">
+                                            <a href="{{ url('admin/post/comments/' . $item->id) }}"
+                                                class="btn btn-secondary btn-sm" style="margin: 2px">Comments</a>
+                                        </div>
+                                        <div style="margin: 5px;">
+                                            <a href="{{ url('admin/post/' . $item->id . '/edit') }}"
+                                                class="btn btn-info btn-sm" style="margin: 2px">Update</a>
+                                        </div>
+                                        <div style="margin: 5px;">
+                                            <a onclick="confirm('Are You Sure You Want To Delete??')"
+                                                href="{{ url('admin/post/' . $item->id . '/delete') }}"
+                                                class="btn btn-danger btn-sm">Delete</a>
+                                        </div>
                                     </td>
+
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
                 </div>
             </div>
-            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
         </div>
 
     </div>

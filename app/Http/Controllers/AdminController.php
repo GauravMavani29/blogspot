@@ -7,6 +7,7 @@ use App\Models\Admin;
 use App\Models\Comment;
 use App\Models\User;
 use App\Models\Post;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -23,11 +24,10 @@ class AdminController extends Controller
             'password'=>'required'
         ]);
 
-        $userCheck = Admin::where(['username'=>$req->username, 'password'=>$req->password])->count();
-        if($userCheck == 1)
+        $userdata = Admin::where('username',$req->username)->first();
+        if($userdata && Hash::check($req->password,$userdata->password))
         {
-            $adminData = Admin::where(['username'=>$req->username, 'password'=>$req->password])->first();
-            session(['adminData'=>$adminData]);
+            session(['adminData'=>$userdata]);
             return redirect('admin/dashboard');
         }else{
             return redirect('admin/login')->with('error','Invalid Username/password!!');
@@ -36,14 +36,14 @@ class AdminController extends Controller
 
     function dashboard()
     {
-        $data = Post::orderBy('id','desc')->get();
+        $data = Post::where('user_id',0)->orderBy('id','desc')->get();
         return view('backend.dashboard',["collection"=>$data]);
     }
 
     function comments()
     {
         $data = Comment::orderBy('id','desc')->get();
-        return view('comments.index',['collection'=>$data]);
+        return view('backend.comments.index',['collection'=>$data]);
     }
 
     function delete_comment($id)
@@ -62,5 +62,17 @@ class AdminController extends Controller
     {
         User::where('id',$id)->delete();
          return redirect('admin/users');
+    }
+
+    function all_comment($id)
+    {
+        $data = Comment::where('post_id',$id)->get();
+        return view('backend.comments.index',["collection"=>$data]);
+    }
+
+    function allpost($id)
+    {
+        $data = Post::where('user_id',$id)->get();
+        return view('backend.post.index',["collection"=>$data]);
     }
 }

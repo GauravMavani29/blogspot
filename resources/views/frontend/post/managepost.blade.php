@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Bootstrap Blog - B4 Template by Bootstrap Temple</title>
+    <title>Manage Post</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
@@ -37,10 +37,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"
         integrity="sha384-LtrjvnR4Twt/qOuYxE721u19sVFLVSA4hf/rRt6PrZTmiPltdZcI7q7PXQBYTKyf" crossorigin="anonymous">
     </script>
-    <!-- Tweaks for older IEs-->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+    <link rel="icon" type="image/png" href="{{ asset('icon') }}/post.png" />
 </head>
 
 <body>
@@ -104,7 +101,7 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 document.getElementById('logout-form').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
@@ -114,15 +111,12 @@
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                            </li>
-                            <li class="nav-item">
                                 <a class="nav-link"
                                     href="{{ url('/frontend/post/addpost') }}">{{ __('Add Post') }}</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link active"
-                                    href="{{ url('/frontend/managepost') }}">{{ __('All Post') }}</a>
+                                    href="{{ url('/frontend/post/managepost') }}">{{ __('All Post') }}</a>
                             </li>
                         @endguest
                     </ul>
@@ -145,7 +139,7 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                                <th>#</th>
+
                                 <th>Category</th>
                                 <th>Title</th>
                                 <th>Image</th>
@@ -154,7 +148,7 @@
                         </thead>
                         <tfoot>
                             <tr>
-                                <th>#</th>
+
                                 <th>Category</th>
                                 <th>Title</th>
                                 <th>Image</th>
@@ -164,7 +158,7 @@
                         <tbody>
                             @foreach ($collection as $item)
                                 <tr>
-                                    <td>{{ $item->id }}</td>
+
                                     <td>{{ $item->cat_id }}</td>
                                     <td>{{ $item->title }}</td>
                                     <td>
@@ -172,11 +166,23 @@
                                             height="100px" width="100px">
                                     </td>
                                     <td style="display: flex; justify-content: space-evenly; align-content: center ">
-                                        <a href="{{ url('frontend/post/editpost/' . $item->id) }}"
-                                            class="btn btn-info btn-sm" style="margin: 2px">Update</a>
-                                        <a onclick="confirm('Are You Sure You Want To Delete??')"
-                                            href="{{ url('frontend/post/delete/' . $item->id) }}"
-                                            class="btn btn-danger btn-sm">Delete</a>
+                                        <div>
+                                            <a href="{{ url('frontend/post/comment/' . $item->id) }}"
+                                                class="btn btn-secondary btn-sm" style="margin: 2px">Comments</a>
+                                        </div>
+                                        <div>
+                                            <a href="{{ url('frontend/post/editpost/' . $item->id) }}"
+                                                class="btn btn-info btn-sm" style="margin: 2px">Update</a>
+                                        </div>
+                                        <div>
+                                            <a onclick="confirm('Are You Sure You Want To Delete??')"
+                                                href="{{ url('frontend/post/deletepost/' . $item->id) }}"
+                                                class="btn btn-danger btn-sm">Delete</a>
+                                        </div>
+                                        <div>
+                                            <a href="{{ url('frontend/post/' . $item->id) }}"
+                                                class="btn btn-success btn-sm">Show</a>
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach
@@ -184,7 +190,6 @@
                     </table>
                 </div>
             </div>
-            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
         </div>
 
     </div>
