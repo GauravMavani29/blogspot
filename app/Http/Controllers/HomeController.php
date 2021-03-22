@@ -22,7 +22,7 @@ class HomeController extends Controller
 
     function managepost(Request $req)
     {
-        $collection = Post::where('user_id',$req->user()->id)->orderBy('id','desc')->get();
+        $collection = Post::where('user_id',$req->user()->id)->rightJoin('categories','posts.cat_id','=','categories.id')->select('categories.title as cname','posts.*')->orderBy('posts.id','desc')->get();
         return view('frontend.post.managepost',['collection'=>$collection]);
     }
 

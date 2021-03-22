@@ -117,8 +117,15 @@
 
                                 @foreach ($collection as $item)
                                     <tr>
+                                        <p style="display: none">
+                                            {{ $cat = \App\Models\Category::where('id', $item->cat_id)->select('title')->get() }}
+                                        </p>
                                         <td>{{ $item->id }}</td>
-                                        <td>{{ $item->cat_id }}</td>
+                                        <td>
+                                            @foreach ($cat as $a)
+                                                {{ $a->title }}
+                                            @endforeach
+                                        </td>
                                         <td>{{ $item->title }}</td>
                                         <td><img src="{{ asset('Post images/Thumbnail') . '/' . $item->thumb }}" alt=""
                                                 height="100px" width="100px"></td>

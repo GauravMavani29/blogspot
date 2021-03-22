@@ -101,7 +101,7 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 document.getElementById('logout-form').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
@@ -139,7 +139,6 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-
                                 <th>Category</th>
                                 <th>Title</th>
                                 <th>Image</th>
@@ -148,7 +147,6 @@
                         </thead>
                         <tfoot>
                             <tr>
-
                                 <th>Category</th>
                                 <th>Title</th>
                                 <th>Image</th>
@@ -156,10 +154,11 @@
                             </tr>
                         </tfoot>
                         <tbody>
-                            @foreach ($collection as $item)
-                                <tr>
 
-                                    <td>{{ $item->cat_id }}</td>
+                            @foreach ($collection as $item)
+
+                                <tr>
+                                    <td>{{ $item->cname }}</td>
                                     <td>{{ $item->title }}</td>
                                     <td>
                                         <img src="{{ asset('Post images/Thumbnail') . '/' . $item->thumb }}" alt=""
