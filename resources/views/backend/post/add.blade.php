@@ -41,7 +41,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th>Title</th>
+                                <th>Title<span class="text-danger">*</span></th>
                                 <td><input type="text" name="title" class="form-control" value="{{ old('title') }}" />
                                     <span style="color: red">@error('title')
                                             {{ $message }}
@@ -74,11 +74,11 @@
 
                             </tr>
                             <tr>
-                                <th>Detail</th>
+                                <th>Detail<span class="text-danger">*</span></th>
                                 <td>
                                     <textarea class="ckeditor form-control" name="detail">
 
-                                                                                                    </textarea>
+                                                                                                        </textarea>
                                     <span style="color: red">
 
                                         @error('detail')
@@ -88,7 +88,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th>Tags</th>
+                                <th>Tags<span class="text-danger">*</span></th>
                                 <td>
                                     <textarea name="tags" class="form-control"></textarea>
                                     <span style="color: red">@error('tags')

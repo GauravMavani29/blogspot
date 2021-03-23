@@ -105,7 +105,7 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 document.getElementById('logout-form').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
@@ -155,7 +155,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <th>Title</th>
+                            <th>Title<span class="text-danger">*</span></th>
                             <td><input type="text" name="title" class="form-control" value="{{ old('title') }}" />
                                 <span style="color: red">@error('title')
                                         {{ $message }}
@@ -188,7 +188,7 @@
 
                         </tr>
                         <tr>
-                            <th>Detail</th>
+                            <th>Detail<span class="text-danger">*</span></th>
                             <td>
                                 <textarea class="ckeditor form-control" name="detail">
                                     {{ old('detail') }}
@@ -202,7 +202,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <th>Tags</th>
+                            <th>Tags<span class="text-danger">*</span></th>
                             <td>
                                 <textarea name="tags" class="form-control"> {{ old('tags') }} </textarea>
                                 <span style="color: red">@error('tags')
@@ -229,6 +229,7 @@
     <script src="{{ asset('frontend') }}/vendor/jquery.cookie/jquery.cookie.js"> </script>
     <script src="{{ asset('frontend') }}/vendor/@fancyapps/fancybox/jquery.fancybox.min.js"></script>
     <script src="{{ asset('frontend') }}/js/front.js"></script>
+
 </body>
 
 </html>

@@ -15,7 +15,9 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <script src='https://www.google.com/recaptcha/api.js'></script>
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -103,7 +105,7 @@
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                                    document.getElementById('logout-form').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        document.getElementById('logout-form').submit();">
                                             {{ __('Logout') }}
                                         </a>
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST"
@@ -132,6 +134,19 @@
         </main>
     </div>
 </body>
+<script>
+    var recaptchachecked = false;
+
+    function recaptchaCallback() {
+        recaptchachecked = true;
+    }
+
+    function isreCaptchaChecked() {
+        document.getElementById("err").innerHTML = "Please ensure that you are a human!";
+        return recaptchachecked;
+    }
+
+</script>
 <script src="{{ asset('frontend') }}/vendor/jquery/jquery.min.js"></script>
 <script src="{{ asset('frontend') }}/vendor/popper.js/umd/popper.min.js"> </script>
 <script src="{{ asset('frontend') }}/vendor/bootstrap/js/bootstrap.min.js"></script>

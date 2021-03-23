@@ -45,7 +45,6 @@
                             </tr>
                         </tfoot>
                         <tbody>
-
                             @foreach ($collection as $item)
                                 <tr>
                                     <p style="display: none">
@@ -79,7 +78,6 @@
                                                 class="btn btn-danger btn-sm">Delete</a>
                                         </div>
                                     </td>
-
                                 </tr>
                             @endforeach
                         </tbody>

@@ -27,6 +27,7 @@
 
     <!-- Favicon-->
     <link rel="shortcut icon" href="favicon.png">
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
@@ -38,6 +39,27 @@
         integrity="sha384-LtrjvnR4Twt/qOuYxE721u19sVFLVSA4hf/rRt6PrZTmiPltdZcI7q7PXQBYTKyf" crossorigin="anonymous">
     </script>
     <link rel="icon" type="image/png" href="{{ asset('icon') }}/post.png" />
+
+    <!-- Page level plugin CSS-->
+    <link href="{{ asset('backend') }}/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+
+    <style>
+        #t1::-webkit-scrollbar {
+            width: 0 !important;
+            display: none;
+        }
+
+        #t1 {
+            scrollbar-width: none;
+            overflow-y: scroll;
+            height: 30rem;
+            justify-content: space-between;
+            box-sizing: border-box;
+            border: 0.1rem solid rgb(236, 236, 236);
+            padding: 1rem;
+        }
+
+    </style>
 </head>
 
 <body>
@@ -101,7 +123,7 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         document.getElementById('logout-form').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
@@ -125,72 +147,83 @@
             </div>
         </nav>
     </header>
-    <div class="container-fluid">
+    <div id="wrapper">
 
 
-        <!-- DataTables Example -->
-        <div class="card mb-3">
-            <div class="card-header">
-                <i class="fas fa-table"></i> Posts
+        <div id="content-wrapper">
+            <div class="container-fluid">
+                <!-- DataTables Example -->
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <i class="fas fa-table"></i> Posts
 
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th>Category</th>
-                                <th>Title</th>
-                                <th>Image</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tfoot>
-                            <tr>
-                                <th>Category</th>
-                                <th>Title</th>
-                                <th>Image</th>
-                                <th>Action</th>
-                            </tr>
-                        </tfoot>
-                        <tbody>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive" id="t1">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>Category</th>
+                                        <th>Title</th>
+                                        <th>Thumb Image</th>
+                                        <th>Main Image</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>Category</th>
+                                        <th>Title</th>
+                                        <th>Thumb Image</th>
+                                        <th>Main Image</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
 
-                            @foreach ($collection as $item)
+                                    @foreach ($collection as $item)
 
-                                <tr>
-                                    <td>{{ $item->cname }}</td>
-                                    <td>{{ $item->title }}</td>
-                                    <td>
-                                        <img src="{{ asset('Post images/Thumbnail') . '/' . $item->thumb }}" alt=""
-                                            height="100px" width="100px">
-                                    </td>
-                                    <td style="display: flex; justify-content: space-evenly; align-content: center ">
-                                        <div>
-                                            <a href="{{ url('frontend/post/comment/' . $item->id) }}"
-                                                class="btn btn-secondary btn-sm" style="margin: 2px">Comments</a>
-                                        </div>
-                                        <div>
-                                            <a href="{{ url('frontend/post/editpost/' . $item->id) }}"
-                                                class="btn btn-info btn-sm" style="margin: 2px">Update</a>
-                                        </div>
-                                        <div>
-                                            <a onclick="confirm('Are You Sure You Want To Delete??')"
-                                                href="{{ url('frontend/post/deletepost/' . $item->id) }}"
-                                                class="btn btn-danger btn-sm">Delete</a>
-                                        </div>
-                                        <div>
-                                            <a href="{{ url('frontend/post/' . $item->id) }}"
-                                                class="btn btn-success btn-sm">Show</a>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                                        <tr>
+                                            <td>{{ $item->cname }}</td>
+                                            <td>{{ $item->title }}</td>
+                                            <td>
+                                                <img src="{{ asset('Post images/Thumbnail') . '/' . $item->thumb }}"
+                                                    alt="" height="100px" width="100px">
+                                            </td>
+                                            <td>
+                                                <img src="{{ asset('Post images/Main Images') . '/' . $item->full_img }}"
+                                                    alt="" height="100px" width="100px">
+                                            </td>
+                                            <td
+                                                style="display: flex; justify-content: space-evenly; align-content: center ">
+                                                <div style="margin: 5px">
+                                                    <a href="{{ url('frontend/post/comment/' . $item->id) }}"
+                                                        class="btn btn-secondary btn-sm"
+                                                        style="margin: 2px">Comments</a>
+                                                </div>
+                                                <div style="margin: 5px">
+                                                    <a href="{{ url('frontend/post/editpost/' . $item->id) }}"
+                                                        class="btn btn-info btn-sm" style="margin: 2px">Update</a>
+                                                </div>
+                                                <div style="margin: 5px">
+                                                    <a onclick="confirm('Are You Sure You Want To Delete??')"
+                                                        href="{{ url('frontend/post/deletepost/' . $item->id) }}"
+                                                        class="btn btn-danger btn-sm">Delete</a>
+                                                </div>
+                                                <div style="margin: 5px">
+                                                    <a href="{{ url('frontend/post/' . $item->id) }}"
+                                                        class="btn btn-success btn-sm">Show</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
     </div>
     <!-- JavaScript files-->
     <script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
@@ -200,6 +233,23 @@
     <script src="{{ asset('frontend') }}/vendor/jquery.cookie/jquery.cookie.js"> </script>
     <script src="{{ asset('frontend') }}/vendor/@fancyapps/fancybox/jquery.fancybox.min.js"></script>
     <script src="{{ asset('frontend') }}/js/front.js"></script>
+    <script src="{{ asset('backend') }}/vendor/jquery/jquery.min.js"></script>
+    <script src="{{ asset('backend') }}/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="{{ asset('backend') }}/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Page level plugin JavaScript-->
+    <script src="{{ asset('backend') }}/vendor/chart.js/Chart.min.js"></script>
+    <script src="{{ asset('backend') }}/vendor/datatables/jquery.dataTables.js"></script>
+    <script src="{{ asset('backend') }}/vendor/datatables/dataTables.bootstrap4.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="{{ asset('backend') }}/js/sb-admin.min.js"></script>
+
+    <!-- Demo scripts for this page-->
+    <script src="{{ asset('backend') }}/js/demo/datatables-demo.js"></script>
+    <script src="{{ asset('backend') }}/js/demo/chart-area-demo.js"></script>
 </body>
 
 </html>

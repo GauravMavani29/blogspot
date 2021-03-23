@@ -37,6 +37,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"
         integrity="sha384-LtrjvnR4Twt/qOuYxE721u19sVFLVSA4hf/rRt6PrZTmiPltdZcI7q7PXQBYTKyf" crossorigin="anonymous">
     </script>
+    <!-- Page level plugin CSS-->
+    <link href="{{ asset('backend') }}/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="{{ asset('icon') }}/comment.png" />
 </head>
 
@@ -101,7 +103,7 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     document.getElementById('logout-form').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
@@ -125,91 +127,99 @@
             </div>
         </nav>
     </header>
-    <div class="container-fluid col-sm">
-        <div class="card mb-3">
-            <div class="card-header">
-                <i class="fas fa-comments"></i> All Comments
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th>User</th>
-                                <th>Comment</th>
-                                <th>Actions</th>
-
-                            </tr>
-                        </thead>
-                        <tfoot>
-                            <tr>
-
-                                <th>User</th>
-                                <th>Comment</th>
-                                <th>Actions</th>
-                            </tr>
-                        </tfoot>
-                        <tbody>
-
-                            @foreach ($collection as $item)
-                                <tr>
+    <div id="wrapper">
 
 
-                                    <td>
-                                        @if ($item->id)
+        <div id="content-wrapper">
+            <div class="container-fluid col-sm">
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <i class="fas fa-comments"></i> All Comments
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>User</th>
+                                        <th>Comment</th>
+                                        <th>Actions</th>
 
-                                            {{ $item->user->name }}
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
 
-                                        @else
-                                            nothing
-                                        @endif
+                                        <th>User</th>
+                                        <th>Comment</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
 
-                                    </td>
+                                    @foreach ($collection as $item)
+                                        <tr>
 
-                                    <td>
 
-                                        {{ $item->comment }}
+                                            <td>
+                                                @if ($item->id)
 
-                                    </td>
+                                                    {{ $item->user->name }}
 
-                                    <td style="display: flex; justify-content: space-evenly; align-content: center ">
-                                        <a onclick="confirm('Are You Sure You Want To Delete??')"
-                                            href="{{ url('admin/comments/delete/' . $item->id) }}"
-                                            class="btn btn-danger btn-sm">Delete</a>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                                                @else
+                                                    nothing
+                                                @endif
+
+                                            </td>
+
+                                            <td>
+
+                                                {{ $item->comment }}
+
+                                            </td>
+
+                                            <td
+                                                style="display: flex; justify-content: space-evenly; align-content: center ">
+                                                <a onclick="confirm('Are You Sure You Want To Delete??')"
+                                                    href="{{ url('admin/comments/delete/' . $item->id) }}"
+                                                    class="btn btn-danger btn-sm">Delete</a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
-
         </div>
-        <!-- JavaScript files-->
-        <script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
-        <script src="{{ asset('frontend') }}/vendor/jquery/jquery.min.js"></script>
-        <script src="{{ asset('frontend') }}/vendor/popper.js/umd/popper.min.js"> </script>
-        <script src="{{ asset('frontend') }}/vendor/bootstrap/js/bootstrap.min.js"></script>
-        <script src="{{ asset('frontend') }}/vendor/jquery.cookie/jquery.cookie.js"> </script>
-        <script src="{{ asset('frontend') }}/vendor/@fancyapps/fancybox/jquery.fancybox.min.js"></script>
-        <script src="{{ asset('frontend') }}/js/front.js"></script>
-        <script src="{{ asset('backend') }}/vendor/jquery/jquery.min.js"></script>
-        <script src="{{ asset('backend') }}/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    </div>
 
-        <!-- Core plugin JavaScript-->
-        <script src="{{ asset('backend') }}/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- JavaScript files-->
+    <script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
+    <script src="{{ asset('frontend') }}/vendor/jquery/jquery.min.js"></script>
+    <script src="{{ asset('frontend') }}/vendor/popper.js/umd/popper.min.js"> </script>
+    <script src="{{ asset('frontend') }}/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="{{ asset('frontend') }}/vendor/jquery.cookie/jquery.cookie.js"> </script>
+    <script src="{{ asset('frontend') }}/vendor/@fancyapps/fancybox/jquery.fancybox.min.js"></script>
+    <script src="{{ asset('frontend') }}/js/front.js"></script>
+    <script src="{{ asset('backend') }}/vendor/jquery/jquery.min.js"></script>
+    <script src="{{ asset('backend') }}/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-        <!-- Page level plugin JavaScript-->
-        <script src="{{ asset('backend') }}/vendor/chart.js/Chart.min.js"></script>
-        <script src="{{ asset('backend') }}/vendor/datatables/jquery.dataTables.js"></script>
-        <script src="{{ asset('backend') }}/vendor/datatables/dataTables.bootstrap4.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="{{ asset('backend') }}/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-        <!-- Custom scripts for all pages-->
-        <script src="{{ asset('backend') }}/js/sb-admin.min.js"></script>
+    <!-- Page level plugin JavaScript-->
+    <script src="{{ asset('backend') }}/vendor/chart.js/Chart.min.js"></script>
+    <script src="{{ asset('backend') }}/vendor/datatables/jquery.dataTables.js"></script>
+    <script src="{{ asset('backend') }}/vendor/datatables/dataTables.bootstrap4.js"></script>
 
-        <!-- Demo scripts for this page-->
-        <script src="{{ asset('backend') }}/js/demo/datatables-demo.js"></script>
-        <script src="{{ asset('backend') }}/js/demo/chart-area-demo.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="{{ asset('backend') }}/js/sb-admin.min.js"></script>
+
+    <!-- Demo scripts for this page-->
+    <script src="{{ asset('backend') }}/js/demo/datatables-demo.js"></script>
+    <script src="{{ asset('backend') }}/js/demo/chart-area-demo.js"></script>
 </body>
 
 </html>
