@@ -53,9 +53,7 @@
                                     <td>{{ $item->id }}</td>
                                     <td>{{ $item->user->name }}</td>
                                     <td>
-                                        @foreach ($cat as $a)
-                                            {{ $a->title }}
-                                        @endforeach
+                                        {{ $cat[0]->title }}
                                     </td>
                                     <td>{{ $item->title }}</td>
                                     <td><img src="{{ asset('Post images/Thumbnail') . '/' . $item->thumb }}" alt=""

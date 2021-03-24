@@ -78,7 +78,7 @@
                                 <td>
                                     <textarea class="ckeditor form-control" name="detail">
 
-                                                                                                        </textarea>
+                                                                                                                                                                        </textarea>
                                     <span style="color: red">
 
                                         @error('detail')
@@ -89,8 +89,9 @@
                             </tr>
                             <tr>
                                 <th>Tags<span class="text-danger">*</span></th>
-                                <td>
-                                    <textarea name="tags" class="form-control"></textarea>
+                                <td style="display: flex; align-items: center">
+                                    <input data-role="tagsinput" type="text" name="tags"
+                                        style="margin: 0; height: 1.875rem; margin: 0; padding: 0;" />
                                     <span style="color: red">@error('tags')
                                             {{ $message }}
                                         @enderror</span>
@@ -98,7 +99,7 @@
                             </tr>
                             <tr>
                                 <td colspan="2">
-                                    <input type="submit" class="btn btn-primary" value="Add" />
+                                    <input type="submit" class="btn btn-primary" value="Add Post" />
                                 </td>
                             </tr>
                         </table>
@@ -106,8 +107,8 @@
                 </div>
             </div>
         </div>
-
     </div>
+    <script src="{{ asset('frontend') }}/js/tags.js"></script>
     <script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
     <!-- /.container-fluid -->
 @endsection

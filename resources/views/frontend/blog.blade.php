@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Bootstrap Blog - B4 Template by Bootstrap Temple</title>
+    <title>Blog Home</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
@@ -53,7 +53,7 @@
             <div class="container">
                 <!-- Navbar Brand -->
                 <div class="navbar-header d-flex align-items-center justify-content-between">
-                    <!-- Navbar Brand --><a href="index.html" class="navbar-brand">Bootstrap Blog</a>
+                    <!-- Navbar Brand --><a href="{{ url('/') }}" class="navbar-brand">Bootstrap Blog</a>
                     <!-- Toggle Button-->
                     <button type="button" data-toggle="collapse" data-target="#navbarcollapse"
                         aria-controls="navbarcollapse" aria-expanded="false" aria-label="Toggle navigation"
@@ -93,7 +93,7 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 document.getElementById('logout-form').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
@@ -118,12 +118,18 @@
     </header>
     <div class="container">
         <div class="row">
-            <main class="posts-listing col-lg-8">
+            <main class="posts-listing col-lg-8" style="padding-top: 20px">
                 <div class="container">
+                    @if ($name)
+                        <h3 style="margin: 5px; color: #9b9a9a">{{ $name }}</h3>
+                    @endif
                     <div class="row">
                         <!-- post -->
                         @if (count($collection) > 0)
                             @foreach ($collection as $item)
+                                <p style="display: none">
+                                    {{ $cat = \App\Models\Category::where('id', $item->cat_id)->select('title')->get() }}
+                                </p>
                                 <div class="post col-xl-6">
                                     <div class="post-thumbnail"><a
                                             href="{{ url('frontend/post/' . $item->id) }}"><img
@@ -132,12 +138,14 @@
                                     <div class="post-details">
                                         <div class="post-meta d-flex justify-content-between">
                                             <div class="date meta-last">{{ $item->created_at }}</div>
-                                            <div class="category"><a href="#">{{ $item->tags }}</a></div>
+                                            <div class="category"><a
+                                                    href="{{ url('frontend/category-blog/' . $item->cat_id) }}">{{ $cat[0]->title }}</a>
+                                            </div>
                                         </div>
-                                        <a href="post.html">
-                                            <h3 class="h4">{{ $item->title }}</h3>
+                                        <a href="{{ url('frontend/post/' . $item->id) }}">
+                                            <h3 class="h4" style="margin: 0">{{ $item->title }}</h3>
                                         </a>
-                                        <p class="text-muted">{!! Str::limit($item->detail, 60) !!}</p>
+                                        <p class="text-muted">{!! Str::limit($item->detail, 100) !!}</p>
                                         <footer class="post-footer d-flex align-items-center">
                                             <a href="{{ url('frontend/post/' . $item->id) }}"
                                                 class="author d-flex align-items-center flex-wrap">
@@ -188,7 +196,7 @@
                                 <a href="{{ url('frontend/post/' . $item->id) }}">
                                     <div class="item d-flex align-items-center">
                                         <div class="image"><img
-                                                src="{{ asset('Post images/Main images') . '/' . $item->full_img }}"
+                                                src="{{ asset('Post images/Thumbnail') . '/' . $item->full_img }}"
                                                 alt="..." class="img-fluid">
                                         </div>
                                         <div class="title"><strong>{{ $item->title }}</strong>

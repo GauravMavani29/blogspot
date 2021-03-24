@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Bootstrap Blog - B4 Template by Bootstrap Temple</title>
+    <title>Update Post</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
@@ -37,10 +37,12 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"
         integrity="sha384-LtrjvnR4Twt/qOuYxE721u19sVFLVSA4hf/rRt6PrZTmiPltdZcI7q7PXQBYTKyf" crossorigin="anonymous">
     </script>
-    <!-- Tweaks for older IEs-->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+    <!-- Custom icon font-->
+    <link rel="stylesheet" href="{{ asset('frontend') }}/css/fontastic.css">
+    <link rel="stylesheet" href="bootstrap-tagsinput.css">
+
+    <script src="bootstrap-tagsinput.min.js"></script>
+    <link rel="icon" type="image/png" href="{{ asset('icon') }}/post.png" />
 </head>
 
 <body>
@@ -65,7 +67,7 @@
             <div class="container">
                 <!-- Navbar Brand -->
                 <div class="navbar-header d-flex align-items-center justify-content-between">
-                    <!-- Navbar Brand --><a href="index.html" class="navbar-brand">Bootstrap Blog</a>
+                    <!-- Navbar Brand --><a href="{{ url('/') }}" class="navbar-brand">Bootstrap Blog</a>
                     <!-- Toggle Button-->
                     <button type="button" data-toggle="collapse" data-target="#navbarcollapse"
                         aria-controls="navbarcollapse" aria-expanded="false" aria-label="Toggle navigation"
@@ -104,7 +106,7 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         document.getElementById('logout-form').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
@@ -229,8 +231,10 @@
                             </tr>
                             <tr>
                                 <th>Tags</th>
-                                <td>
-                                    <textarea name="tags" class="form-control">{{ $data->tags }}</textarea>
+                                <td style="display: flex; align-items: center">
+                                    <input data-role="tagsinput" type="text" name="tags"
+                                        style="margin: 0; height: 1.875rem; margin: 0; padding: 0;"
+                                        value="{{ $data->tags }}" />
                                     <span style="color: red">@error('tags')
                                             {{ $message }}
                                         @enderror</span>
@@ -254,6 +258,7 @@
     <script src="{{ asset('frontend') }}/vendor/bootstrap/js/bootstrap.min.js"></script>
     <script src="{{ asset('frontend') }}/vendor/jquery.cookie/jquery.cookie.js"> </script>
     <script src="{{ asset('frontend') }}/vendor/@fancyapps/fancybox/jquery.fancybox.min.js"></script>
+    <script src="{{ asset('frontend') }}/js/tags.js"></script>
     <script src="{{ asset('frontend') }}/js/front.js"></script>
 </body>
 

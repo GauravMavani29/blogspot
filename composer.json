@@ -15,7 +15,10 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
-        "laravel/ui": "^3.2"
+        "laravel/ui": "^3.2",
+        "overtrue/laravel-follow": "^2.2",
+        "overtrue/laravel-like": "^4.0",
+        "rtconner/laravel-tagging": "^4.0"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

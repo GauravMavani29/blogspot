@@ -34,6 +34,14 @@
     <link href="{{ asset('backend') }}/css/sb-admin.css" rel="stylesheet">
 
     <link rel="icon" type="image/png" href="{{ asset('icon') }}@yield('icons')" />
+
+    <!-- Custom icon font-->
+    <link rel="stylesheet" href="{{ asset('frontend') }}/css/fontastic.css">
+
+    <link rel="stylesheet" href="bootstrap-tagsinput.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="bootstrap-tagsinput.min.js"></script>
 </head>
 @if (!session()->has('adminData'))
     <script>

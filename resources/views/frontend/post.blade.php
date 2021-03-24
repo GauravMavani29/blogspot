@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Bootstrap Blog - B4 Template by Bootstrap Temple</title>
+    <title>Post</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
@@ -25,6 +25,7 @@
     <!-- Favicon-->
     <link rel="shortcut icon" href="favicon.png">
     <link rel="icon" type="image/png" href="{{ asset('icon') }}/post.png" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" />
     <!-- Tweaks for older IEs-->
     <style>
         #commentscroll {
@@ -46,6 +47,18 @@
 </head>
 
 <body>
+    <div id="fb-root"></div>
+    <script>
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.1';
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+    </script>
     <header class="header">
         <!-- Main Navbar-->
         <nav class="navbar navbar-expand-lg">
@@ -67,7 +80,7 @@
             <div class="container">
                 <!-- Navbar Brand -->
                 <div class="navbar-header d-flex align-items-center justify-content-between">
-                    <!-- Navbar Brand --><a href="index.html" class="navbar-brand">Bootstrap Blog</a>
+                    <!-- Navbar Brand --><a href="{{ url('/') }}" class="navbar-brand">Bootstrap Blog</a>
                     <!-- Toggle Button-->
                     <button type="button" data-toggle="collapse" data-target="#navbarcollapse"
                         aria-controls="navbarcollapse" aria-expanded="false" aria-label="Toggle navigation"
@@ -105,8 +118,7 @@
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 document.getElementById('logout-form').submit();">
+                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
@@ -129,25 +141,51 @@
             </div>
         </nav>
     </header>
+    <div class="share-btn-container">
+        <a href="#" class="twitter-btn">
+            <i class="fab fa-twitter"></i>
+        </a>
+
+        <a href="#" class="pinterest-btn">
+            <i class="fab fa-pinterest"></i>
+        </a>
+
+        <a href="#" class="linkedin-btn">
+            <i class="fab fa-linkedin"></i>
+        </a>
+
+        <a href="#" class="whatsapp-btn">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+
     <div class="container">
+
         <div class="row">
             <main class="post blog-post col-lg-8">
                 <div class="container">
                     @if ($collection)
+                        <p style="display: none">
+                            {{ $cat = \App\Models\Category::where('id', $collection->cat_id)->select('title')->get() }}
+                        </p>
                         <div class="post-single">
                             <div class="post-thumbnail"><img
                                     src="{{ asset('Post images/Main images') . '/' . $collection->full_img }}"
                                     alt="..." class="img-fluid"></div>
                             <div class="post-details">
                                 <div class="post-meta d-flex justify-content-between">
-                                    <div class="category"><a href="#">Business</a><a href="#">Financial</a></div>
+                                    <div class="category">
+                                        <a href="{{ url('frontend/category-blog/' . $collection->cat_id) }}">
+                                            {{ $cat[0]->title }}
+                                        </a>
+                                    </div>
                                 </div>
                                 <h1>{{ $collection->title }}<a href="#"><i class="fa fa-bookmark-o"></i></a></h1>
                                 <div class="post-footer d-flex align-items-center flex-column flex-sm-row"><a href="#"
                                         class="author d-flex align-items-center flex-wrap">
                                         <div class="avatar"><img
                                                 src="{{ asset('frontend/img/profile/' . $collection->user->profile) }}"
-                                                alt="..." class="img-fluid"></div>
+                                                alt="..." class="img-fluid post-image"></div>
                                         <div class="title"><span>{{ $collection->user->name }}</span></div>
                                     </a>
                                     <div class="d-flex align-items-center flex-wrap">
@@ -158,39 +196,46 @@
                                                 class="icon-comment"></i>{{ count($collection->comments) }}</div>
                                     </div>
                                 </div>
-                                <div class="post-body">
-                                    {{-- <p class="lead">{{ $collection->detail }}</p> --}}
-                                    <p class="lead">{!! $collection->detail !!}</p>
-                                </div>
-                                <div class="post-tags"><a href="#" class="tag">#Business</a><a href="#"
-                                        class="tag">#Tricks</a><a href="#" class="tag">#Financial</a><a href="#"
-                                        class="tag">#Economy</a>
-                                </div>
+                            </div>
+                            <div class="post-body">
+                                <p class="lead">{!! $collection->detail !!}</p>
+                            </div>
+                            <div class="post-tags">
+                                @php
+                                    $tagarr = explode(',', $collection->tags);
+                                @endphp
 
-                                @auth
-                                    <div class="add-comment">
-                                        <header>
-                                            <h3 class="h6">Leave a reply</h3>
-                                            <p class="text-success">
-                                                @if (Session::has('success'))
-                                                    {{ session('success') }}@endif
-                                            </p>
-                                        </header>
-                                        <form action="{{ url('save-comment/' . $collection->id) }}"
-                                            class="commenting-form" method="POST">
-                                            @csrf
-                                            <div class="row">
-                                                <div class="form-group col-md-12">
-                                                    <textarea name="usercomment" id="usercomment"
-                                                        placeholder="Type your comment" class="form-control"></textarea>
-                                                </div>
-                                                <div class="form-group col-md-12">
-                                                    <button type="submit" class="btn btn-secondary">Submit Comment</button>
-                                                </div>
+                                @foreach ($tagarr as $item)
+
+                                    <a href="#" class="tag">#{{ $item }}</a>
+                                @endforeach
+                            </div>
+
+                            @auth
+                                <div class="add-comment">
+                                    <header>
+                                        <h3 class="h6">Leave a reply</h3>
+                                        <p class="text-success">
+                                            @if (Session::has('success'))
+                                                {{ session('success') }}@endif
+                                        </p>
+                                    </header>
+                                    <form action="{{ url('save-comment/' . $collection->id) }}" class="commenting-form"
+                                        method="POST">
+                                        @csrf
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <textarea name="usercomment" id="usercomment"
+                                                    placeholder="Type your comment" class="form-control"></textarea>
                                             </div>
-                                        </form>
-                                    </div>
-                                @else
+                                            <div class="form-group col-md-12">
+                                                <button type="submit" class="btn btn-secondary">Submit Comment</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            @else
+                                <div style="margin: 10px">
                                     <div class="form-group col-md-12">
                                         <a class="btn btn-secondary" style="color: aliceblue"
                                             href="{{ route('login') }}">Login</a>
@@ -199,13 +244,16 @@
                                         <a class="btn btn-secondary" style="color: aliceblue"
                                             href="{{ route('register') }}">Register</a>
                                     </div>
-                                @endauth
-                                <div class="post-comments">
-                                    <header>
-                                        <h3 class="h6">Post Comments<span
-                                                class="no-of-comments">({{ count($collection->comments) }})</span>
-                                        </h3>
-                                    </header>
+                                </div>
+                            @endauth
+
+                            <div class="post-comments">
+                                <header>
+                                    <h3 class="h6">Post Comments<span
+                                            class="no-of-comments">({{ count($collection->comments) }})</span>
+                                    </h3>
+                                </header>
+                                @if (count($collection->comments) > 0)
                                     <div class="comment" id="commentscroll">
                                         @if ($collection->comments)
                                             @foreach ($collection->comments as $item)
@@ -232,18 +280,16 @@
                                             @endforeach
                                         @endif
                                     </div>
-                                </div>
-
+                                @endif
                             </div>
                         </div>
-                    @else
-                        <div class="alert alert-danger col-lg-3">
-                            No Post Found
-                        </div>
-                    @endif
                 </div>
+            @else
+                <div class="alert alert-danger col-lg-3">
+                    No Post Found
+                </div>
+                @endif
             </main>
-
             <aside class="col-lg-4">
                 <!-- Widget [Search Bar Widget]-->
                 <div class="widget search">
@@ -268,7 +314,7 @@
                                 <a href="{{ url('frontend/post/' . $item->id) }}">
                                     <div class="item d-flex align-items-center">
                                         <div class="image"><img
-                                                src="{{ asset('Post images/Main images') . '/' . $item->full_img }}"
+                                                src="{{ asset('Post images/Thumbnail') . '/' . $item->full_img }}"
                                                 alt="..." class="img-fluid">
                                         </div>
                                         <div class="title"><strong>{{ $item->title }}</strong>
@@ -376,6 +422,49 @@
     <script src="{{ asset('frontend') }}/vendor/bootstrap/js/bootstrap.min.js"></script>
     <script src="{{ asset('frontend') }}/vendor/jquery.cookie/jquery.cookie.js"> </script>
     <script src="{{ asset('frontend') }}/vendor/@fancyapps/fancybox/jquery.fancybox.min.js"></script>
+    <script>
+        const facebookBtn = document.querySelector(".facebook-btn");
+        const twitterBtn = document.querySelector(".twitter-btn");
+        const pinterestBtn = document.querySelector(".pinterest-btn");
+        const linkedinBtn = document.querySelector(".linkedin-btn");
+        const whatsappBtn = document.querySelector(".whatsapp-btn");
+
+        function init() {
+            const pinterestImg = document.querySelector(".post-image");
+
+            let postUrl = encodeURI(document.location.href);
+            let postTitle = encodeURI("Hi everyone, please check this out: ");
+            let postImg = encodeURI(pinterestImg.src);
+
+            // facebookBtn.setAttribute(
+            //     "href",
+            //     `https://www.facebook.com/sharer.php?u=${postUrl}`
+            // );
+
+            twitterBtn.setAttribute(
+                "href",
+                `https://twitter.com/share?url=${postUrl}&text=${postTitle}`
+            );
+
+            pinterestBtn.setAttribute(
+                "href",
+                `https://pinterest.com/pin/create/bookmarklet/?media=${postImg}&url=${postUrl}&description=${postTitle}`
+            );
+
+            linkedinBtn.setAttribute(
+                "href",
+                `https://www.linkedin.com/shareArticle?url=${postUrl}&title=${postTitle}`
+            );
+
+            whatsappBtn.setAttribute(
+                "href",
+                `https://wa.me/?text=${postTitle} ${postUrl}`
+            );
+        }
+
+        init();
+
+    </script>
     <script src="{{ asset('frontend') }}/js/front.js"></script>
 </body>
 

@@ -104,7 +104,6 @@ class HomeController extends Controller
             $dest = public_path('./Post images/Main Images');
             $image->move($dest,$rePostImage);
         }
-
         $post = new Post;
         $post->user_id = $req->user()->id;
         $post->cat_id = $req->category;
@@ -132,13 +131,14 @@ class HomeController extends Controller
         }else{
             $data = Post::orderBy('id','desc')->paginate(4);
         }
-        return view('frontend.blog',['collection'=>$data]);
+        return view('frontend.blog',['collection'=>$data,'name'=>'All Post']);
     }
 
     function category_blog($id)
     {
         $data = Post::where('cat_id',$id)->paginate(4);
-        return view('frontend.blog',['collection'=>$data]);
+        $name = Category::where('id',$id)->select('title')->get();
+        return view('frontend.blog',['collection'=>$data,'name'=>$name[0]->title]);
     }
     function post() 
     {
@@ -153,7 +153,7 @@ class HomeController extends Controller
     function postmain($id)
     {
         Post::find($id)->increment('views');
-        $data = Post::find($id);    
+        $data = Post::with('like')->find($id);   
         return view('frontend.post',['collection'=>$data]);
     }
 
@@ -178,11 +178,26 @@ class HomeController extends Controller
         }
         if($userdata->user_id == $req->user()->id)
         {
-            $data = Comment::where([['post_id',$id],['user_id',$req->user()->id]])->get();
+            $data = Comment::where([['post_id',$id],['user_id',$req->user()->id()]])->get();
             return view('frontend.post.postcomment',["collection"=>$data]);
         }
         else{
             return view('frontend.page.pageerror');
         }
+    }
+
+    function like(Post $post,Request $req)
+    {
+        $like = $post->like()->first();
+
+        if($like)
+        {
+            $like->delete();
+
+            return response()->json(['message'=>'Successfully unliked post', 'like'=>null]);
+        }
+        $post->likes()->save(new PostLike(['user_id'=>auth()->id]));
+
+        return response()->json(['message'=>'Successfully liked post', 'like'=>$req->like]);
     }
 }

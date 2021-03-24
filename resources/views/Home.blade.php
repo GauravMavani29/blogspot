@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Bootstrap Blog - B4 Template by Bootstrap Temple</title>
+    <title>Home</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
@@ -29,13 +29,13 @@
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
-    <style>
-        #view::after {
-            content: "|"
-        }
-
-    </style>
 </head>
+<style>
+    .content {
+        padding: 0;
+    }
+
+</style>
 
 <body>
     <header class="header">
@@ -59,7 +59,7 @@
             <div class="container">
                 <!-- Navbar Brand -->
                 <div class="navbar-header d-flex align-items-center justify-content-between">
-                    <!-- Navbar Brand --><a href="index.html" class="navbar-brand">Bootstrap Blog</a>
+                    <!-- Navbar Brand --><a href="{{ url('/') }}" class="navbar-brand">Bootstrap Blog</a>
                     <!-- Toggle Button-->
                     <button type="button" data-toggle="collapse" data-target="#navbarcollapse"
                         aria-controls="navbarcollapse" aria-expanded="false" aria-label="Toggle navigation"
@@ -98,7 +98,7 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                document.getElementById('logout-form').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
@@ -153,83 +153,72 @@
         <div class="container">
             <!-- Post-->
             @if ($recent_posts)
+
                 @foreach ($recent_posts as $item)
                     @if ($item->id % 2 == 0)
-
                         <div class="row d-flex align-items-stretch">
                             <div class="image col-lg-5"><img
-                                    src="{{ asset('Post images/Thumbnail/' . $item->thumb) }}" alt="...">
-                            </div>
+                                    src="{{ asset('Post images/Thumbnail/' . $item->thumb) }}" alt="..."></div>
                             <div class="text col-lg-7">
-                                <a href="{{ url('frontend/post/' . $item->id) }}">
-                                    <div class="text-inner d-flex align-items-center">
-                                        <div class="content">
-                                            <header class="post-header">
-                                                <div class="category"><a
-                                                        href="{{ url('frontend/post/' . $item->id) }}">{{ $item->category }}</a>
-                                                </div><a href="{{ url('frontend/post/' . $item->id) }}">
-                                                    <h2 class="h4">{{ $item->title }}</h2>
-                                                </a>
-                                            </header>
-                                            <p>{!! Str::limit($item->detail, 60) !!}</p>
-                                            <footer class="post-footer d-flex align-items-center">
-                                                <a href="{{ url('frontend/post/' . $item->id) }}"
-                                                    class="author d-flex align-items-center flex-wrap">
-                                                    <div class="avatar"><img
-                                                            src="{{ asset('frontend/img/profile/' . $item->user->profile) }}"
-                                                            alt="..." class="img-fluid">
-                                                    </div>
-                                                    <div class="title"><span>{{ $item->user->name }}</span></div>
-                                                </a>
-                                                <div class="views"><i class="icon-eye"></i> {{ $item->views }}
-                                                </div>
-
-                                            </footer>
-                                        </div>
+                                <div class="text-inner d-flex align-items-center">
+                                    <div class="content">
+                                        <header class="post-header">
+                                            <div class="category"><a
+                                                    href="{{ url('frontend/post/' . $item->id) }}">{{ $item->category }}</a>
+                                            </div>
+                                            <a href="{{ url('frontend/post/' . $item->id) }}">
+                                                <h2 class="h4">{{ $item->title }}</h2>
+                                            </a>
+                                        </header>
+                                        <p id="pt">{!! Str::limit($item->detail, 230) !!}</p>
+                                        <footer class="post-footer d-flex align-items-center"><a
+                                                href="{{ url('frontend/post/' . $item->id) }}"
+                                                class="author d-flex align-items-center flex-wrap">
+                                                <div class="avatar"><img
+                                                        src="{{ asset('frontend/img/profile/' . $item->user->profile) }}"
+                                                        alt="..." class="img-fluid"></div>
+                                                <div class="title"><span>{{ $item->user->name }}</span></div>
+                                            </a>
+                                            <div class="views"><i class="icon-eye"></i> {{ $item->views }}
+                                            </div>
+                                        </footer>
                                     </div>
-                                </a>
+                                </div>
                             </div>
+
                         </div>
 
                     @else
+
                         <div class="row d-flex align-items-stretch">
                             <div class="text col-lg-7">
-                                <a href="{{ url('frontend/post/' . $item->id) }}">
-                                    <div class="text-inner d-flex align-items-center">
-
-
-                                        <div class="content">
-                                            <header class="post-header">
-                                                <div class="category"><a
-                                                        href="{{ url('frontend/post/' . $item->id) }}">{{ $item->category }}</a>
-                                                </div>
-                                                <a href="{{ url('frontend/post/' . $item->id) }}">
-                                                    <h2 class="h4">{{ $item->title }}</h2>
-                                                </a>
-                                            </header>
-                                            <p>{!! Str::limit($item->detail, 60) !!}</p>
-                                            <footer class="post-footer d-flex align-items-center"><a
-                                                    href="{{ url('frontend/post/' . $item->id) }}"
-                                                    class="author d-flex align-items-center flex-wrap">
-                                                    <div class="avatar">
-                                                        <img src="{{ asset('frontend/img/profile/' . $item->user->profile) }}"
-                                                            alt="..." class="img-fluid">
-                                                    </div>
-                                                    <div class="title"><span>{{ $item->user->name }}</span></div>
-                                                </a>
-
-                                                <div class="views"><i class="icon-eye"></i> {{ $item->views }}
-                                                </div>
-
-                                            </footer>
-                                        </div>
+                                <div class="text-inner d-flex align-items-center">
+                                    <div class="content">
+                                        <header class="post-header">
+                                            <div class="category"><a
+                                                    href="{{ url('frontend/post/' . $item->id) }}">{{ $item->category }}</a>
+                                            </div>
+                                            <a href="{{ url('frontend/post/' . $item->id) }}">
+                                                <h2 class="h4">{{ $item->title }}</h2>
+                                            </a>
+                                        </header>
+                                        <p>{!! Str::limit($item->detail, 230) !!}</p>
+                                        <footer class="post-footer d-flex align-items-center"><a
+                                                href="{{ url('frontend/post/' . $item->id) }}"
+                                                class="author d-flex align-items-center flex-wrap">
+                                                <div class="avatar"><img
+                                                        src="{{ asset('frontend/img/profile/' . $item->user->profile) }}"
+                                                        alt="..." class="img-fluid"></div>
+                                                <div class="title"><span>{{ $item->user->name }}</span></div>
+                                            </a>
+                                            <div class="views"><i class="icon-eye"></i> {{ $item->views }}
+                                            </div>
+                                        </footer>
                                     </div>
-                                </a>
+                                </div>
                             </div>
-                            <div class="image col-lg-5">
-
-                                <img src="{{ asset('Post images/Thumbnail/' . $item->thumb) }}" alt="...">
-                            </div>
+                            <div class="image col-lg-5"><img
+                                    src="{{ asset('Post images/Thumbnail/' . $item->thumb) }}" alt="..."></div>
                         </div>
                     @endif
                 @endforeach
@@ -269,9 +258,9 @@
                                 <div class="category"><a
                                         href="{{ url('frontend/post/' . $item->id) }}">{{ $item->tags }}</a></div>
                             </div><a href="post.html">
-                                <h3 class="h4">{{ $item->title }}</h3>
+                                <h3 class="h4" style="margin: 0">{{ $item->title }}</h3>
                             </a>
-                            <p class="text-muted">{!! Str::limit($item->detail, 50) !!} </p>
+                            <p class="text-muted">{!! Str::limit($item->detail, 100) !!} </p>
                         </div>
                     </div>
                 @endforeach

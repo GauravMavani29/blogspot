@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Bootstrap Blog - B4 Template by Bootstrap Temple</title>
+    <title>Add Post</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
@@ -25,22 +25,10 @@
     <!-- Custom fonts for this template-->
     <link href="{{ asset('backend') }}/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
-    <!-- Favicon-->
-    <link rel="shortcut icon" href="favicon.png">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="bootstrap-tagsinput.css">
 
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous">
-    </script>
-
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"
-        integrity="sha384-LtrjvnR4Twt/qOuYxE721u19sVFLVSA4hf/rRt6PrZTmiPltdZcI7q7PXQBYTKyf" crossorigin="anonymous">
-    </script>
-    <!-- Tweaks for older IEs-->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+    <script src="bootstrap-tagsinput.min.js"></script>
+    <link rel="icon" type="image/png" href="{{ asset('icon') }}/post.png" />
 </head>
 
 <body>
@@ -65,7 +53,7 @@
             <div class="container">
                 <!-- Navbar Brand -->
                 <div class="navbar-header d-flex align-items-center justify-content-between">
-                    <!-- Navbar Brand --><a href="index.html" class="navbar-brand">Bootstrap Blog</a>
+                    <!-- Navbar Brand --><a href="{{ url('/') }}" class="navbar-brand">Bootstrap Blog</a>
                     <!-- Toggle Button-->
                     <button type="button" data-toggle="collapse" data-target="#navbarcollapse"
                         aria-controls="navbarcollapse" aria-expanded="false" aria-label="Toggle navigation"
@@ -105,7 +93,7 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         document.getElementById('logout-form').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
@@ -156,7 +144,9 @@
                         </tr>
                         <tr>
                             <th>Title<span class="text-danger">*</span></th>
-                            <td><input type="text" name="title" class="form-control" value="{{ old('title') }}" />
+                            <td style="display: flex; justify-content: center; align-items: center"><input type="text"
+                                    name="title" class="form-control" value="{{ old('title') }}"
+                                    style="margin: 0; height: 1.875rem" />
                                 <span style="color: red">@error('title')
                                         {{ $message }}
                                     @enderror</span>
@@ -165,7 +155,8 @@
                         </tr>
                         <tr>
                             <th>Thumbnail<span class="text-danger">*</span>(540x540)</th>
-                            <td><input type="file" name="post_thumb" required />
+                            <td style="display: flex;align-items: center"><input type="file" name="post_thumb" required
+                                    style="margin: 0; height: 2.5rem" />
                                 <span style="color: red">
 
                                     @error('post_thumb')
@@ -177,7 +168,8 @@
                         </tr>
                         <tr>
                             <th>Post Image<span class="text-danger">*</span>(720x720)</th>
-                            <td><input type="file" name="post_image" required />
+                            <td style="display: flex; align-items: center"><input type="file" name="post_image" required
+                                    style="margin: 0; height: 2.5rem" />
                                 <span style="color: red">
 
                                     @error('post_image')
@@ -203,8 +195,9 @@
                         </tr>
                         <tr>
                             <th>Tags<span class="text-danger">*</span></th>
-                            <td>
-                                <textarea name="tags" class="form-control"> {{ old('tags') }} </textarea>
+                            <td style="display: flex; align-items: center">
+                                <input data-role="tagsinput" type="text" name="tags"
+                                    style="margin: 0; height: 1.875rem; margin: 0; padding: 0;" />
                                 <span style="color: red">@error('tags')
                                         {{ $message }}
                                     @enderror</span>
@@ -228,6 +221,7 @@
     <script src="{{ asset('frontend') }}/vendor/bootstrap/js/bootstrap.min.js"></script>
     <script src="{{ asset('frontend') }}/vendor/jquery.cookie/jquery.cookie.js"> </script>
     <script src="{{ asset('frontend') }}/vendor/@fancyapps/fancybox/jquery.fancybox.min.js"></script>
+    <script src="{{ asset('frontend') }}/js/tags.js"></script>
     <script src="{{ asset('frontend') }}/js/front.js"></script>
 
 </body>

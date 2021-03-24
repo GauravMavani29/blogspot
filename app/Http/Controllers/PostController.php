@@ -165,4 +165,14 @@ class PostController extends Controller
         Post::find($id)->delete();
         return redirect('admin/post');
     }
+
+    public function ajaxRequest(Request $request){
+
+
+        $post = Post::find($request->id);
+        $response = auth()->user()->toggleLike($post);
+
+
+        return response()->json(['success'=>$response]);
+    }
 }

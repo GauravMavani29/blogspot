@@ -60,9 +60,10 @@ Route::get('/frontend/post/addpost',[HomeController::class, 'addpost']);
 Route::get('/frontend/post/managepost',[HomeController::class, 'managepost']);
 Route::get('/frontend/post/postcomment',[HomeController::class, 'postcomment']);
 Route::get('/frontend/post/editpost/{id}',[HomeController::class, 'editpost']);
-Route::put('/frontend/post/updatepost/{id}',[HomeController::class, 'updatepost']);
+Route::put('/frontend/post/updatepost/{id}',[HomeController::class, 'updatepost']); 
 Route::get('/frontend/post/deletepost/{id}',[HomeController::class, 'deletepost']);
 Route::get('/frontend/post/comment/{id}',[HomeController::class, 'all_comment']);
+Route::post('/blogspot/public/frontend/like',[HomeController::class,'like']);
 
 
 Route::post('/frontend/savepost',[HomeController::class, 'savepost']);
@@ -79,5 +80,7 @@ Route::get('/testing',function()
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::post('ajaxRequest', 'PostController@ajaxRequest')->name('ajaxRequest');
 
 

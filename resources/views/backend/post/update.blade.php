@@ -98,8 +98,8 @@
                                 <th>Detail</th>
                                 <td>
                                     <textarea class="ckeditor form-control" name="detail">
-                                                                                                        {{ $data->detail }}
-                                                                                                    </textarea>
+                                                                                                                                    {{ $data->detail }}
+                                                                                                                                </textarea>
                                     <span style="color: red">
 
                                         @error('detail')
@@ -110,8 +110,10 @@
                             </tr>
                             <tr>
                                 <th>Tags</th>
-                                <td>
-                                    <textarea name="tags" class="form-control">{{ $data->tags }}</textarea>
+                                <td style="display: flex; align-items: center; padding: 4px;">
+                                    <input data-role="tagsinput" type="text" name="tags"
+                                        style="margin: 0; height: 1.875rem; margin: 0; padding: 0;"
+                                        value="{{ $data->tags }}" />
                                     <span style="color: red">@error('tags')
                                             {{ $message }}
                                         @enderror</span>
@@ -129,6 +131,7 @@
         </div>
 
     </div>
+    <script src="{{ asset('frontend') }}/js/tags.js"></script>
     <script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
     <!-- /.container-fluid -->
 @endsection
