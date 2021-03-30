@@ -91,6 +91,18 @@
                     <a class="dropdown-item" href="{{ url('admin/post/create') }}">Add New</a>
                 </div>
             </li>
+            {{-- Plans --}}
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-money-check-alt"></i>
+                    <span>Plan</span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+                    <a class="dropdown-item" href="{{ url('admin/plans') }}">View All</a>
+                    <a class="dropdown-item" href="{{ url('admin/create/plan') }}">Add New</a>
+                </div>
+            </li>
             <!-- Comments -->
             <li class="nav-item">
                 <a class="nav-link" href="{{ url('admin/comments') }}">

@@ -74,7 +74,11 @@
                         </li>
                         <li class="nav-item"><a href="{{ url('frontend/post') }}" class="nav-link ">Post</a>
                         </li>
-                        <li class="nav-item"><a href="#" class="nav-link ">Contact</a>
+                        <li class="nav-item"><a href="#" class="nav-link ">
+                                @if (Session::has('success'))
+                                    {{ session('success') }}
+                                @endif
+                            </a>
                         </li>
                         @guest
                             @if (Route::has('login'))
@@ -98,7 +102,7 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            document.getElementById('logout-form').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
@@ -114,6 +118,11 @@
                             <li class="nav-item">
                                 <a class="nav-link"
                                     href="{{ url('/frontend/post/managepost') }}">{{ __('All Post') }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('') }}">
+                                    {{ __('Profile') }}
+                                </a>
                             </li>
                         @endguest
                     </ul>
@@ -152,10 +161,18 @@
     <section class="featured-posts no-padding-top">
         <div class="container">
             <!-- Post-->
+            @php
+                $count = 0;
+            @endphp
             @if ($recent_posts)
-
                 @foreach ($recent_posts as $item)
-                    @if ($item->id % 2 == 0)
+
+                    @if ($count == 0)
+                        @php
+                            $cat = \App\Models\Category::where('id', $item->cat_id)
+                                ->select('title')
+                                ->get();
+                        @endphp
                         <div class="row d-flex align-items-stretch">
                             <div class="image col-lg-5"><img
                                     src="{{ asset('Post images/Thumbnail/' . $item->thumb) }}" alt="..."></div>
@@ -164,7 +181,7 @@
                                     <div class="content">
                                         <header class="post-header">
                                             <div class="category"><a
-                                                    href="{{ url('frontend/post/' . $item->id) }}">{{ $item->category }}</a>
+                                                    href="{{ url('frontend/category-blog/' . $item->cat_id) }}">{{ $cat[0]->title }}</a>
                                             </div>
                                             <a href="{{ url('frontend/post/' . $item->id) }}">
                                                 <h2 class="h4">{{ $item->title }}</h2>
@@ -187,16 +204,22 @@
                             </div>
 
                         </div>
-
+                        @php
+                            $count = 1;
+                        @endphp
                     @else
-
+                        @php
+                            $cat = \App\Models\Category::where('id', $item->cat_id)
+                                ->select('title')
+                                ->get();
+                        @endphp
                         <div class="row d-flex align-items-stretch">
                             <div class="text col-lg-7">
                                 <div class="text-inner d-flex align-items-center">
                                     <div class="content">
                                         <header class="post-header">
                                             <div class="category"><a
-                                                    href="{{ url('frontend/post/' . $item->id) }}">{{ $item->category }}</a>
+                                                    href="{{ url('frontend/category-blog/' . $item->cat_id) }}">{{ $cat[0]->title }}</a>
                                             </div>
                                             <a href="{{ url('frontend/post/' . $item->id) }}">
                                                 <h2 class="h4">{{ $item->title }}</h2>
@@ -220,6 +243,9 @@
                             <div class="image col-lg-5"><img
                                     src="{{ asset('Post images/Thumbnail/' . $item->thumb) }}" alt="..."></div>
                         </div>
+                        @php
+                            $count = 0;
+                        @endphp
                     @endif
                 @endforeach
             @endif
@@ -247,6 +273,11 @@
             </header>
             <div class="row">
                 @foreach ($popular_posts as $item)
+                    @php
+                        $cat = \App\Models\Category::where('id', $item->cat_id)
+                            ->select('title')
+                            ->get();
+                    @endphp
                     <div class="post col-md-4">
                         <div class="post-thumbnail"><a href="{{ url('frontend/post/' . $item->id) }}"><img
                                     src="{{ asset('Post images/Thumbnail/' . $item->thumb) }}" alt="..."
@@ -256,8 +287,9 @@
                             <div class="post-meta d-flex justify-content-between">
                                 <div class="date">{{ $item->created_at }}</div>
                                 <div class="category"><a
-                                        href="{{ url('frontend/post/' . $item->id) }}">{{ $item->tags }}</a></div>
-                            </div><a href="post.html">
+                                        href="{{ url('frontend/category-blog/' . $item->cat_id) }}">{{ $cat[0]->title }}</a>
+                                </div>
+                            </div><a href="{{ url('') }}">
                                 <h3 class="h4" style="margin: 0">{{ $item->title }}</h3>
                             </a>
                             <p class="text-muted">{!! Str::limit($item->detail, 100) !!} </p>

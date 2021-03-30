@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Blog Home</title>
+    <title>Blog</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
@@ -25,10 +25,7 @@
     <!-- Favicon-->
     <link rel="shortcut icon" href="favicon.png">
     <link rel="icon" type="image/png" href="{{ asset('icon') }}/feed.png" />
-    <!-- Tweaks for older IEs-->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+
 </head>
 
 <body>
@@ -93,7 +90,7 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 document.getElementById('logout-form').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
@@ -108,6 +105,11 @@
                             <li class="nav-item">
                                 <a class="nav-link"
                                     href="{{ url('/frontend/post/managepost') }}">{{ __('All Post') }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('') }}">
+                                    {{ __('Profile') }}
+                                </a>
                             </li>
                         @endguest
                     </ul>
@@ -127,9 +129,11 @@
                         <!-- post -->
                         @if (count($collection) > 0)
                             @foreach ($collection as $item)
-                                <p style="display: none">
-                                    {{ $cat = \App\Models\Category::where('id', $item->cat_id)->select('title')->get() }}
-                                </p>
+                                @php
+                                    $cat = \App\Models\Category::where('id', $item->cat_id)
+                                        ->select('title')
+                                        ->get();
+                                @endphp
                                 <div class="post col-xl-6">
                                     <div class="post-thumbnail"><a
                                             href="{{ url('frontend/post/' . $item->id) }}"><img
@@ -145,7 +149,7 @@
                                         <a href="{{ url('frontend/post/' . $item->id) }}">
                                             <h3 class="h4" style="margin: 0">{{ $item->title }}</h3>
                                         </a>
-                                        <p class="text-muted">{!! Str::limit($item->detail, 100) !!}</p>
+                                        <p class="text-muted">{!! Str::limit($item->detail, 150) !!}</p>
                                         <footer class="post-footer d-flex align-items-center">
                                             <a href="{{ url('frontend/post/' . $item->id) }}"
                                                 class="author d-flex align-items-center flex-wrap">
@@ -227,7 +231,7 @@
                     @endif
                 </div>
                 <!-- Widget [Tags Cloud Widget]-->
-                <div class="widget tags">
+                {{-- <div class="widget tags">
                     <header>
                         <h3 class="h6">Tags</h3>
                     </header>
@@ -238,7 +242,7 @@
                         <li class="list-inline-item"><a href="#" class="tag">#Sports</a></li>
                         <li class="list-inline-item"><a href="#" class="tag">#Economy</a></li>
                     </ul>
-                </div>
+                </div> --}}
             </aside>
         </div>
     </div>

@@ -131,8 +131,14 @@
                                 <a class="nav-link" href="{{ url('frontend/post/addpost') }}">{{ __('Add Post') }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link"
-                                    href="{{ url('/frontend/post/managepost') }}">{{ __('All Post') }}</a>
+                                <a class="nav-link" href="{{ url('/frontend/post/allpost') }}">
+                                    {{ __('All Post') }}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('') }}">
+                                    {{ __('Profile') }}
+                                </a>
                             </li>
                         @endguest
                     </ul>
@@ -165,9 +171,12 @@
             <main class="post blog-post col-lg-8">
                 <div class="container">
                     @if ($collection)
-                        <p style="display: none">
-                            {{ $cat = \App\Models\Category::where('id', $collection->cat_id)->select('title')->get() }}
-                        </p>
+                        @php
+                            $cat = \App\Models\Category::where('id', $collection->cat_id)
+                                ->select('title')
+                                ->get();
+                        @endphp
+
                         <div class="post-single">
                             <div class="post-thumbnail"><img
                                     src="{{ asset('Post images/Main images') . '/' . $collection->full_img }}"
@@ -206,8 +215,8 @@
                                 @endphp
 
                                 @foreach ($tagarr as $item)
-
-                                    <a href="#" class="tag">#{{ $item }}</a>
+                                    <a href="{{ url('frontend/tag-blog/' . $item) }}"
+                                        class="tag">#{{ $item }}</a>
                                 @endforeach
                             </div>
 
@@ -345,7 +354,7 @@
                     @endif
                 </div>
                 <!-- Widget [Tags Cloud Widget]-->
-                <div class="widget tags">
+                {{-- <div class="widget tags">
                     <header>
                         <h3 class="h6">Tags</h3>
                     </header>
@@ -356,7 +365,7 @@
                         <li class="list-inline-item"><a href="#" class="tag">#Sports</a></li>
                         <li class="list-inline-item"><a href="#" class="tag">#Economy</a></li>
                     </ul>
-                </div>
+                </div> --}}
             </aside>
         </div>
     </div>

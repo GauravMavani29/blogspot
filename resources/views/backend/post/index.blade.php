@@ -1,4 +1,5 @@
 @extends('layout')
+@section('title', 'All Post')
 @section('meta_desc', 'This is Post')
 @section('title', 'Post')
 @section('icons', '/post.png')

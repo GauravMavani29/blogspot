@@ -20,12 +20,4 @@ class Post extends Model
     function category(){
         return $this->belongsTo('App\Models\Category','title');
     }
-
-    function likes(){
-        return $this->hasmany('App\Models\PostLike');
-    }
-
-    function like(){
-        return $this->hasOne('App\Models\PostLike')->where('user_id',auth()->id());
-    }
 }

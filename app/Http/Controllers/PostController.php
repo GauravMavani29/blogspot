@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Category;
+use Image;
 class PostController extends Controller
 {
     /**
@@ -44,8 +45,8 @@ class PostController extends Controller
             'title'=>'required',
             'detail'=>'required',
             'tags'=>'required',
-            'post_thumb'=>'dimensions:min_width=540,min_height=540',
-            'post_image'=>'dimensions:min_width=720,min_height=720'
+            'post_thumb'=>'dimensions:min_width=500,min_height=350',
+            'post_image'=>'dimensions:min_width=750,min_height=470'
         ]);
 
         if($req->has('post_thumb'))
@@ -53,7 +54,11 @@ class PostController extends Controller
             $image = $req->file('post_thumb');
             $reThumbImage = time() . '.' . $image->getClientOriginalExtension();
             $dest = public_path('./Post images/Thumbnail');
-            $image->move($dest,$reThumbImage);
+            // $image->move($dest,$reThumbImage);
+            $img = Image::make($image->path());
+            $img->resize(500, 350, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save($dest.'/'.$reThumbImage);
         }
 
         if($req->has('post_image'))
@@ -61,8 +66,14 @@ class PostController extends Controller
             $image = $req->file('post_image');
             $rePostImage = time() . '.' . $image->getClientOriginalExtension();
             $dest = public_path('./Post images/Main Images');
-            $image->move($dest,$rePostImage);
+            // $image->move($dest,$rePostImage);
+            $img = Image::make($image->path());
+            $img->resize(750, 470, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save($dest.'/'.$rePostImage);
         }
+
+        
 
         $post = new Post;
         $post->user_id = 0;
@@ -114,8 +125,8 @@ class PostController extends Controller
             'title'=>'required',
             'detail'=>'required',
             'tags'=>'required',
-            'post_thumb'=>'dimensions:min_width=540,min_height=540',
-            'post_image'=>'dimensions:min_width=720,min_height=720'
+            'post_thumb'=>'dimensions:min_width=500,min_height=350',
+            'post_image'=>'dimensions:min_width=750,min_height=470'
         ]);
 
         if($req->has('post_thumb'))
@@ -123,7 +134,11 @@ class PostController extends Controller
             $image = $req->file('post_thumb');
             $reThumbImage = time().'.'.$image->getClientOriginalExtension();
             $dest = public_path('./Post images/Thumbnail');
-            $image->move($dest,$reThumbImage);
+            // $image->move($dest,$reThumbImage);
+            $img = Image::make($image->path());
+            $img->resize(500, 350, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save($dest.'/'.$reThumbImage);
         }
         else{
             $reThumbImage = $req->cur_thumbimage;
@@ -134,7 +149,11 @@ class PostController extends Controller
             $image = $req->file('post_image');
             $rePostImage = time().'.'.$image->getClientOriginalExtension();
             $dest = public_path('./Post images/Main Images');
-            $image->move($dest,$rePostImage);
+            // $image->move($dest,$rePostImage);
+            $img = Image::make($image->path());
+            $img->resize(750, 470, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save($dest.'/'.$rePostImage);
         }
         else{
             $rePostImage = $req->cur_postimage;
@@ -162,17 +181,19 @@ class PostController extends Controller
     public function destroy($id)
     {
         //
+        $img = Post::where('id',$id)->select('thumb','full_img')->get();
+        $thumbpath = "./Post images/Thumbnail/".$img[0]->thumb;
+        $fullpath = "./Post images/Main Images/".$img[0]->full_img;
+
+        if (file_exists($thumbpath)) {
+            @unlink($thumbpath);
+        }
+        if (file_exists($fullpath)) {
+
+            @unlink($fullpath);
+     
+        }
         Post::find($id)->delete();
         return redirect('admin/post');
-    }
-
-    public function ajaxRequest(Request $request){
-
-
-        $post = Post::find($request->id);
-        $response = auth()->user()->toggleLike($post);
-
-
-        return response()->json(['success'=>$response]);
     }
 }
