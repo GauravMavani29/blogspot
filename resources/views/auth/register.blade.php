@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('register', 'active')
 @section('icons', '/register.png')
 @section('content')
     <div class="container">

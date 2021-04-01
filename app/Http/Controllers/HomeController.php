@@ -6,7 +6,10 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Comment;
 use App\Models\Category;
+use App\Models\subscription;
+use App\Models\Viewscount;
 use Image;
+use Auth;
 class HomeController extends Controller
 {
     //
@@ -43,11 +46,104 @@ class HomeController extends Controller
         return view('frontend.post',['collection'=>$data]);
     }
 
-    function postmain($id)
+    function postmain(Request $req,$id)
     {
-        Post::find($id)->increment('views');
-        $data = Post::find($id);   
-        return view('frontend.post',['collection'=>$data]);
+        $check = 0;
+        $todayDate = date("Y-m-d");
+        if(Auth::check())
+        {
+            $count = subscription::where('user_id',$req->user()->id)->count();
+            if($count  == 1)
+            {
+                $check = 1;
+            }
+
+        }
+        else{
+            $totalcount = Viewscount::where('ip',$req->ip())->where('viewdate',$todayDate)->where('user_id',null)->count();
+            if($totalcount >= 5){
+                $viewedpost = Viewscount::where('ip',$req->ip())->where('viewdate',$todayDate)->where('post_id',$id)->where('user_id',null)->count();
+                if($viewedpost == 1)
+                {
+                    $data = Post::find($id);   
+                    return view('frontend.post',['collection'=>$data]);
+                } 
+                return redirect('/plans');
+            }
+            else{
+                $checkpost = Viewscount::where('post_id',$id)->where('ip',$req->ip())->where('viewdate',$todayDate)->where('user_id',null)->count();
+                if($checkpost == 0){
+                    Post::find($id)->increment('views');
+                    $view = new Viewscount;
+                    $view->ip = $req->ip();
+                    if(Auth::check())
+                    {
+                        $view->user_id = $req->user()->id;
+                    }
+                    $view->post_id = $id;
+                    $view->viewdate = $todayDate;
+                    $view->save();
+                    $data = Post::find($id);   
+                    return view('frontend.post',['collection'=>$data]);
+                }
+                else{
+                    $data = Post::find($id);    
+                    return view('frontend.post',['collection'=>$data]);
+                }
+            }
+        }
+        if($check == 1)
+        {
+            $checkpost = Viewscount::where('post_id',$id)->where('user_id',$req->user()->id)->where('viewdate',$todayDate)->count();
+            if($checkpost == 0){
+                Post::find($id)->increment('views');
+                    $view = new Viewscount;
+                    $view->ip = $req->ip();
+                    $view->user_id = $req->user()->id;
+                    $view->post_id = $id;
+                    $view->viewdate = $todayDate;
+                    $view->save();
+                $data = Post::find($id);   
+                return view('frontend.post',['collection'=>$data]);
+            }
+            else{
+                $data = Post::find($id);   
+                return view('frontend.post',['collection'=>$data]);
+            }
+        }
+        else{
+            $totalcount = Viewscount::where('ip',$req->ip())->where('viewdate',$todayDate)->where('user_id',$req->user()->id)->count();
+            if($totalcount >= 5){
+                $viewedpost = Viewscount::where('ip',$req->ip())->where('viewdate',$todayDate)->where('post_id',$id)->count();
+                if($viewedpost == 1)
+                {
+                    $data = Post::find($id);   
+                    return view('frontend.post',['collection'=>$data]);
+                } 
+                return redirect('/plans');
+            }
+            else{
+                $checkpost = Viewscount::where('post_id',$id)->where('ip',$req->ip())->where('viewdate',$todayDate)->where('user_id',$req->user()->id)->count();
+                if($checkpost == 0){
+                    Post::find($id)->increment('views');
+                    $view = new Viewscount;
+                    $view->ip = $req->ip();
+                    if(Auth::check())
+                    {
+                        $view->user_id = $req->user()->id;
+                    }
+                    $view->post_id = $id;
+                    $view->viewdate = $todayDate;
+                    $view->save();
+                    $data = Post::find($id);   
+                    return view('frontend.post',['collection'=>$data]);
+                }
+                else{
+                    $data = Post::find($id);    
+                    return view('frontend.post',['collection'=>$data]);
+                }
+            }
+        }
     }
 
    

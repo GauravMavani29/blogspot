@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('icons', '/login.png')
+@section('login', 'active')
 @section('content')
     <div class="container">
         <div class="row justify-content-center">

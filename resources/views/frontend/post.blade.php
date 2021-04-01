@@ -136,7 +136,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url('') }}">
+                                <a class="nav-link" href="{{ url('/profile') }}">
                                     {{ __('Profile') }}
                                 </a>
                             </li>

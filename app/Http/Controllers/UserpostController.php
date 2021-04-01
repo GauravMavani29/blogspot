@@ -168,7 +168,7 @@ class UserpostController extends Controller
         }
         if($userdata->user_id == $req->user()->id)
         {
-            $data = Comment::where([['post_id',$id],['user_id',$req->user()->id()]])->get();
+            $data = Comment::where([['post_id',$id],['user_id',$req->user()->id]])->get();
             return view('frontend.post.postcomment',["collection"=>$data]);
         }
         else{

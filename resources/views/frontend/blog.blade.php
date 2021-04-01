@@ -90,7 +90,7 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             document.getElementById('logout-form').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
@@ -107,7 +107,7 @@
                                     href="{{ url('/frontend/post/managepost') }}">{{ __('All Post') }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url('') }}">
+                                <a class="nav-link" href="{{ url('/profile') }}">
                                     {{ __('Profile') }}
                                 </a>
                             </li>

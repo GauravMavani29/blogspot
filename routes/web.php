@@ -61,9 +61,7 @@ Route::post('admin/setting',[SettingController::class,'save_setting']);
 //Frontend
 
 
-Route::get('/',[HomeController::class, 'index']);
-Route::get('/create/profile',[UserprofileController::class,'createprofile']);
-Route::get('/profile/{name}',[UserprofileController::class,'displayprofile']);
+
 
 Route::group(['middleware'=>['Userprotected']],function(){
     Route::get('/frontend/post/addpost',[UserpostController::class, 'addpost']);
@@ -75,22 +73,30 @@ Route::group(['middleware'=>['Userprotected']],function(){
     Route::get('/frontend/post/comment/{id}',[UserpostController::class, 'all_comment']);
 });
 
-
+Route::get('/',[HomeController::class, 'index']);
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/frontend/blog',[HomeController::class, 'blog']);
 Route::get('/frontend/category-blog/{id}',[HomeController::class, 'category_blog']);
 Route::get('/frontend/tag-blog/{tag}',[HomeController::class, 'tag_blog']);
 Route::get('/frontend/post',[HomeController::class, 'post']);
 Route::get('/frontend/post/{id}',[HomeController::class, 'postmain']);
-Route::post('save-comment/{id}',[UserpostController::class,'save_comment']);
+
+Route::group(['middleware' => 'verified'], function() {
+    Route::get('/create/profile',[UserprofileController::class,'create']);
+    Route::post('/storeprofile',[UserprofileController::class,'store']);
+    Route::get('/profile',[UserprofileController::class,'index']);
+    Route::post('save-comment/{id}',[UserpostController::class,'save_comment']);
+});
+
 Route::get('/testing',function()
 {
     return view('test');
 });
 
 
-Auth::routes();
+Auth::routes(['verify'=>true]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 
 // Route::post('ajaxRequest', 'PostController@ajaxRequest')->name('ajaxRequest');
 
@@ -98,9 +104,9 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/plans', [PlanController::class,'index'])->name('plans.index');
     Route::get('/plan/{plan}', [PlanController::class,'show'])->name('plans.show');
     Route::post('/subscription', [SubscriptionController::class,'create'])->name('subscription.create');
-
-    //Routes for create Plan
-    Route::get('admin/create/plan', [SubscriptionController::class,'createPlan'])->name('create.plan');
-    Route::post('admin/store/plan', [SubscriptionController::class,'storePlan'])->name('store.plan');
-    Route::get('admin/plans', [PlanController::class,'adminindex'])->name('plans.adminindex');
+    
 });
+//Routes for create Plan
+Route::get('admin/create/plan', [SubscriptionController::class,'createPlan'])->name('create.plan');
+Route::post('admin/store/plan', [SubscriptionController::class,'storePlan'])->name('store.plan');
+Route::get('admin/plans', [PlanController::class,'adminindex'])->name('plans.adminindex');
