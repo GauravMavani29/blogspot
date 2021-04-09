@@ -29,7 +29,7 @@
                                     {{ session('success') }}
                                 @endif
                             </span>
-                            <tr>
+                            {{-- <tr>
                                 <th>Comment Auto Approve</th>
                                 <td><input type="text" name="comment_auto" class="form-control" @if ($collection) value="{{ $collection->comment_auto }}" @endif />
                                     <span style="color: red">@error('comment_auto')
@@ -44,7 +44,7 @@
                                             {{ $message }}
                                         @enderror</span>
                                 </td>
-                            </tr>
+                            </tr> --}}
                             <tr>
                                 <th>Recent Post Limit</th>
                                 <td><input type="text" name="recent_post_limit" class="form-control" @if ($collection) value="{{ $collection->recent_post_limit }}" @endif />

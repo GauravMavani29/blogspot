@@ -235,7 +235,8 @@
                                         <div class="row">
                                             <div class="form-group col-md-12">
                                                 <textarea name="usercomment" id="usercomment"
-                                                    placeholder="Type your comment" class="form-control"></textarea>
+                                                    placeholder="Type your comment" class="form-control"
+                                                    required></textarea>
                                             </div>
                                             <div class="form-group col-md-12">
                                                 <button type="submit" class="btn btn-secondary">Submit Comment</button>
@@ -283,7 +284,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="comment-body">
-                                                    <p>{{ $item->comment }}
+                                                    <p>
+                                                        {{ $item->comment }}
                                                     </p>
                                                 </div>
                                             @endforeach
@@ -353,19 +355,6 @@
                         @endforeach
                     @endif
                 </div>
-                <!-- Widget [Tags Cloud Widget]-->
-                {{-- <div class="widget tags">
-                    <header>
-                        <h3 class="h6">Tags</h3>
-                    </header>
-                    <ul class="list-inline">
-                        <li class="list-inline-item"><a href="#" class="tag">#Business</a></li>
-                        <li class="list-inline-item"><a href="#" class="tag">#Technology</a></li>
-                        <li class="list-inline-item"><a href="#" class="tag">#Fashion</a></li>
-                        <li class="list-inline-item"><a href="#" class="tag">#Sports</a></li>
-                        <li class="list-inline-item"><a href="#" class="tag">#Economy</a></li>
-                    </ul>
-                </div> --}}
             </aside>
         </div>
     </div>

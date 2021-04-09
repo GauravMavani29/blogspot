@@ -103,6 +103,13 @@
                     <a class="dropdown-item" href="{{ url('admin/create/plan') }}">Add New</a>
                 </div>
             </li>
+            {{-- ClubPoints --}}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url('admin/clubpoints') }}">
+                    <i class="fa fa-bullseye"></i>
+                    <span>ClubPoints</span>
+                </a>
+            </li>
             <!-- Comments -->
             <li class="nav-item">
                 <a class="nav-link" href="{{ url('admin/comments') }}">

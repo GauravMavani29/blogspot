@@ -4,9 +4,15 @@ $count = \App\Models\Profile::where('user_id', Auth::user()->id)->count();
 @if ($count == 1)
     @extends('layouts.app')
     @section('profile', 'active')
+    @section('icons', '/profile.png')
     @section('content')
         <div class="container">
             <div class="main-body">
+                <h4 class="text text-success">
+                    @if (Session::has('success'))
+                        {{ session('success') }}
+                    @endif
+                </h4>
                 <div class="row gutters-sm">
                     <div class="col-md-4 mb-3">
                         <div class="card">
@@ -158,8 +164,22 @@ $count = \App\Models\Profile::where('user_id', Auth::user()->id)->count();
                                         style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
                                         <h6 class="mb-0">Membership Plan</h6>
                                     </div>
+                                    @php
+                                        $plan = App\Models\subscription::where('user_id', Auth::user()->id)->get();
+                                    @endphp
                                     <div class="col-sm-9 text-secondary">
-                                        <button class="btn btn-success">Standard</button>
+                                        <button class="btn btn-success">
+                                            @php
+                                                if (count($plan) > 0) {
+                                                    # code...
+                                                    $name = App\Models\plan::where('stripe_plan', $plan[0]->stripe_plan)->get();
+                                                    $display = $name[0]->name;
+                                                } else {
+                                                    $display = 'None';
+                                                }
+                                            @endphp
+                                            {{ $display }}
+                                        </button>
                                     </div>
                                 </div>
                             </div>

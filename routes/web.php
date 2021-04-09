@@ -10,6 +10,7 @@ use App\Http\Controllers\PlanController;
 use App\Http\Controllers\UserpostController;
 use App\Http\Controllers\UserprofileController;
 use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\ClubpointController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,6 +30,7 @@ use App\Http\Controllers\SubscriptionController;
 Route::get('/admin/login',[AdminController::class, 'login']);
 Route::post('/admin/login',[AdminController::class, 'submit_login']);
 Route::get('/admin/dashboard',[AdminController::class, 'dashboard']);
+
 //category
 Route::resource('admin/category', CategoryController::class);
 Route::get('/admin/category/{id}/delete',[CategoryController::class, 'destroy']);
@@ -38,6 +40,10 @@ Route::get('/admin/category/allpost/{id}',[CategoryController::class, 'allpost']
 //post  
 Route::get('/admin/post/{id}/delete',[PostController::class, 'destroy']);
 Route::resource('admin/post', PostController::class);
+
+//Clubpoints
+Route::get('admin/clubpoints',[ClubpointController::class,'index']);
+Route::post('admin/clubpoints',[ClubpointController::class,'save_clubpoints']);
 
 //comments
 Route::get('/admin/comments',[AdminController::class, 'comments']);
@@ -59,9 +65,6 @@ Route::get('admin/setting',[SettingController::class,'index']);
 Route::post('admin/setting',[SettingController::class,'save_setting']);
 
 //Frontend
-
-
-
 
 Route::group(['middleware'=>['Userprotected']],function(){
     Route::get('/frontend/post/addpost',[UserpostController::class, 'addpost']);

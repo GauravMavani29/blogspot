@@ -63,8 +63,7 @@
                         </li>
                         <li class="nav-item"><a href="{{ url('frontend/blog') }}" class="nav-link active">Blog</a>
                         </li>
-                        <li class="nav-item"><a href="{{ url('frontend/post') }}"
-                                class="nav-link @yeild('val','active') ">Post</a>
+                        <li class="nav-item"><a href="{{ url('frontend/post') }}" class="nav-link">Post</a>
                         </li>
                         <li class="nav-item"><a href="#" class="nav-link ">Contact</a>
                         </li>
@@ -90,7 +89,7 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 document.getElementById('logout-form').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
@@ -120,10 +119,10 @@
     </header>
     <div class="container">
         <div class="row">
-            <main class="posts-listing col-lg-8" style="padding-top: 20px">
+            <main class="posts-listing col-lg-8" style="padding-top: 20px; padding: 20px 0px 0px 0px;">
                 <div class="container">
                     @if ($name)
-                        <h3 style="margin: 5px; color: #9b9a9a">{{ $name }}</h3>
+                        <h3 style="margin: 0px 0px 15px 0px; color: #9b9a9a">{{ $name }}</h3>
                     @endif
                     <div class="row">
                         <!-- post -->
@@ -172,7 +171,7 @@
                         @endif
                         <!-- Pagination -->
                     </div>
-                    <div>
+                    <div style="margin: 15px 0px">
                         {{ $collection->links() }}
                     </div>
             </main>

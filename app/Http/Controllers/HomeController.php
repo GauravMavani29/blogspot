@@ -103,8 +103,8 @@ class HomeController extends Controller
                     $view->post_id = $id;
                     $view->viewdate = $todayDate;
                     $view->save();
-                $data = Post::find($id);   
-                return view('frontend.post',['collection'=>$data]);
+                    $data = Post::find($id);   
+                    return view('frontend.post',['collection'=>$data]);
             }
             else{
                 $data = Post::find($id);   

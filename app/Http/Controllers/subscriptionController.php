@@ -29,7 +29,7 @@ class subscriptionController extends Controller
                 'email' => $user->email,
             ]);
         
-        return redirect('/')->with('success', 'Your plan subscribed successfully');
+        return redirect('/profile')->with('success', 'Your plan subscribed successfully');
     }
 
 
