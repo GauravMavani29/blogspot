@@ -34,7 +34,9 @@
     .content {
         padding: 0;
     }
-
+    body{
+        letter-spacing: 1px;
+    }
 </style>
 
 <body>
@@ -59,7 +61,7 @@
             <div class="container">
                 <!-- Navbar Brand -->
                 <div class="navbar-header d-flex align-items-center justify-content-between">
-                    <!-- Navbar Brand --><a href="{{ url('/') }}" class="navbar-brand">Bootstrap Blog</a>
+                    <!-- Navbar Brand --><a href="{{ url('/') }}" class="navbar-brand">Blogspot</a>
                     <!-- Toggle Button-->
                     <button type="button" data-toggle="collapse" data-target="#navbarcollapse"
                         aria-controls="navbarcollapse" aria-expanded="false" aria-label="Toggle navigation"
@@ -100,7 +102,7 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            document.getElementById('logout-form').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
@@ -172,8 +174,10 @@
                                 ->get();
                         @endphp
                         <div class="row d-flex align-items-stretch">
-                            <div class="image col-lg-5"><img
-                                    src="{{ asset('Post images/Thumbnail/' . $item->thumb) }}" alt="..."></div>
+                            <div class="image col-lg-5" style="position: relative; height:100vh; width: 100vw;"><img
+                                    src="{{ asset('Post images/Thumbnail/' . $item->thumb) }}" alt="..."
+                                    style="position: absolute; background-size: 100% 100%; height:100%; width:100%;">
+                            </div>
                             <div class="text col-lg-7">
                                 <div class="text-inner d-flex align-items-center">
                                     <div class="content">
@@ -238,8 +242,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="image col-lg-5"><img
-                                    src="{{ asset('Post images/Thumbnail/' . $item->thumb) }}" alt="..."></div>
+                            <div class="image col-lg-5" style="position: relative; height:100vh; width: 100vw;"><img
+                                    src="{{ asset('Post images/Thumbnail/' . $item->thumb) }}" alt="..."
+                                    style="position: absolute; background-size: 100% 100%; height:100%; width:100%;">
+                            </div>
                         </div>
                         @php
                             $count = 0;
@@ -287,7 +293,7 @@
                                 <div class="category"><a
                                         href="{{ url('frontend/category-blog/' . $item->cat_id) }}">{{ $cat[0]->title }}</a>
                                 </div>
-                            </div><a href="{{ url('') }}">
+                            </div><a href="{{ url('frontend/post/' . $item->id) }}">
                                 <h3 class="h4" style="margin: 0">{{ $item->title }}</h3>
                             </a>
                             <p class="text-muted">{!! Str::limit($item->detail, 100) !!} </p>

@@ -38,6 +38,11 @@
     <link rel="shortcut icon" href="favicon.png">
     <link rel="icon" type="image/png" href="{{ asset('icon') }}@yield('icons')" />
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <style>
+        body{
+        letter-spacing: 1px;
+    }
+    </style>
 </head>
 
 <body>
@@ -64,7 +69,7 @@
                 <div class="container">
                     <!-- Navbar Brand -->
                     <div class="navbar-header d-flex align-items-center justify-content-between">
-                        <!-- Navbar Brand --><a href="{{ url('/') }}" class="navbar-brand">Bootstrap Blog</a>
+                        <!-- Navbar Brand --><a href="{{ url('/') }}" class="navbar-brand">Blogspot</a>
                         <!-- Toggle Button-->
                         <button type="button" data-toggle="collapse" data-target="#navbarcollapse"
                             aria-controls="navbarcollapse" aria-expanded="false" aria-label="Toggle navigation"
@@ -107,7 +112,7 @@
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                document.getElementById('logout-form').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        document.getElementById('logout-form').submit();">
                                             {{ __('Logout') }}
                                         </a>
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST"

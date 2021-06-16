@@ -136,18 +136,22 @@
                                             <div style="margin: 5px">
 
                                                 <a href="{{ url('admin/post/comments/' . $item->id) }}"
-                                                    class="btn btn-secondary btn-sm">Comments</a>
+                                                    class="btn btn-secondary btn-sm" data-toggle="tooltip"
+                                                    data-placement="left" title="Comments">
+                                                    <i class="far fa-comments"></i></a>
                                             </div>
                                             <div style="margin: 5px">
 
                                                 <a href="{{ url('admin/post/' . $item->id . '/edit') }}"
-                                                    class="btn btn-info btn-sm">Update</a>
+                                                    class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="left"
+                                                    title="Edit"><i class="far fa-edit"></i></a>
                                             </div>
                                             <div style="margin: 5px">
 
-                                                <a onclick="confirm('Are You Sure You Want To Delete??')"
-                                                    href="{{ url('admin/post/' . $item->id . '/delete') }}"
-                                                    class="btn btn-danger btn-sm">Delete</a>
+                                                <a onclick="checkAdminPostDelete({{ $item->id }})"
+                                                    class="btn btn-danger btn-sm" style="color: white" data-toggle="tooltip"
+                                                    data-placement="left" title="Delete"><i
+                                                        class="far fa-trash-alt"></i></a>
                                             </div>
 
                                         </td>
@@ -159,5 +163,12 @@
                 </div>
             </div>
         </div>
+        <script>
+            function checkAdminPostDelete(id) {
+                if (confirm("Are you sure you want to delete!!")) {
+                    window.location.href = "{{ url('admin/post') }}" + "/" + id + "delete";
+                }
+            }
 
+        </script>
     @endsection

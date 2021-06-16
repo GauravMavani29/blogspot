@@ -32,6 +32,12 @@ $count = \App\Models\Profile::where('user_id', Auth::user()->id)->count();
         <!-- Page level plugin CSS-->
         <link href="{{ asset('backend') }}/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
         <link rel="icon" type="image/png" href="{{ asset('icon') }}/comment.png" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <style>
+            body{
+            letter-spacing: 1px;
+            }
+        </style>
     </head>
 
     <body>
@@ -96,7 +102,7 @@ $count = \App\Models\Profile::where('user_id', Auth::user()->id)->count();
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 document.getElementById('logout-form').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     document.getElementById('logout-form').submit();">
                                             {{ __('Logout') }}
                                         </a>
 
@@ -179,9 +185,10 @@ $count = \App\Models\Profile::where('user_id', Auth::user()->id)->count();
 
                                                 <td
                                                     style="display: flex; justify-content: space-evenly; align-content: center ">
-                                                    <a onclick="confirm('Are You Sure You Want To Delete??')"
-                                                        href="{{ url('admin/comments/delete/' . $item->id) }}"
-                                                        class="btn btn-danger btn-sm">Delete</a>
+                                                    <a onclick="checkUserPostCommentDelete({{ $item->id }})"
+                                                        class="btn btn-danger btn-sm" style="color: white"
+                                                        data-toggle="tooltip" data-placement="top" title="Delete"><i
+                                                            class="far fa-trash-alt"></i></a>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -193,7 +200,17 @@ $count = \App\Models\Profile::where('user_id', Auth::user()->id)->count();
                 </div>
             </div>
         </div>
+        <script>
+            function checkUserPostCommentDelete(id) {
+                if (confirm("Are you sure you want to delete!!")) {
+                    window.location.href = "{{ url('/frontend/post/comments/delete') }}" + "/" + id;
+                }
+            }
+            $(document).ready(function() {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
 
+        </script>
         <!-- JavaScript files-->
         <script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
         <script src="{{ asset('frontend') }}/vendor/jquery/jquery.min.js"></script>

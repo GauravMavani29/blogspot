@@ -6,7 +6,8 @@ $count = \App\Models\Profile::where('user_id', Auth::user()->id)->count();
     @section('profile', 'active')
     @section('icons', '/profile.png')
     @section('content')
-        <div class="container">
+
+        <div class="container" id="main">
             <div class="main-body">
                 <h4 class="text text-success">
                     @if (Session::has('success'))
@@ -29,7 +30,8 @@ $count = \App\Models\Profile::where('user_id', Auth::user()->id)->count();
                         </div>
                         <div class="card mt-3">
                             <ul class="list-group list-group-flush">
-                                <a href="" style="color: black; text-decoration: none">
+                                <a href="https://github.com/{{ $collection[0]->github }}" target="_blank"
+                                    style="color: black; text-decoration: none">
                                     <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                                         <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -42,7 +44,8 @@ $count = \App\Models\Profile::where('user_id', Auth::user()->id)->count();
                                         <span class="text-secondary">{{ $collection[0]->github }}</span>
                                     </li>
                                 </a>
-                                <a href="" style="color: black; text-decoration: none">
+                                <a href="https://twitter.com/{{ $collection[0]->twitter }}" target="_blank"
+                                    style="color: black; text-decoration: none">
                                     <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                                         <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -55,7 +58,8 @@ $count = \App\Models\Profile::where('user_id', Auth::user()->id)->count();
                                         <span class="text-secondary"><span>@</span>{{ $collection[0]->twitter }}</span>
                                     </li>
                                 </a>
-                                <a href="" style="color: black; text-decoration: none">
+                                <a href="https://instagram.com/{{ $collection[0]->instagram }}" target="_blank"
+                                    style="color: black; text-decoration: none">
                                     <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                                         <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -68,7 +72,8 @@ $count = \App\Models\Profile::where('user_id', Auth::user()->id)->count();
                                         <span class="text-secondary">{{ $collection[0]->instagram }}</span>
                                     </li>
                                 </a>
-                                <a href="" style="color: black; text-decoration: none">
+                                <a href="https://facebook.com/{{ $collection[0]->facebook }}" target="_blank"
+                                    style="color: black; text-decoration: none">
                                     <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                                         <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -151,12 +156,19 @@ $count = \App\Models\Profile::where('user_id', Auth::user()->id)->count();
                                 </div>
                                 <hr>
                                 <div class="row">
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-3" style="display: flex; align-items: center">
                                         <h6 class="mb-0">Club Points</h6>
                                     </div>
-                                    <div class="col-sm-9 text-secondary">
-                                        1000
+                                    <div class="col-sm-1 text-secondary" style="margin-top: 7px">
+                                        {{ $points }}
                                     </div>
+                                    <div class="col-sm-3">
+                                        <button class="btn btn-dark" style="color: white" id="contact">
+                                            Reedem
+                                        </button>
+                                    </div>
+
+
                                 </div>
                                 <hr>
                                 <div class="row">
@@ -180,6 +192,10 @@ $count = \App\Models\Profile::where('user_id', Auth::user()->id)->count();
                                             @endphp
                                             {{ $display }}
                                         </button>
+
+                                        @if (count($plan) == 0)
+                                            <a href="{{ url('/plans') }}" class="btn btn-secondary">Membership</a>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -189,6 +205,52 @@ $count = \App\Models\Profile::where('user_id', Auth::user()->id)->count();
             </div>
         </div>
         </div>
+        <div id="contactForm">
+            <h1>Payment Details!<a class="close">&times;</a></h1>
+            <small>We'll get back to you as quickly as possible</small>
+
+            <form action="#">
+                <input placeholder="Username" type="text" required />
+                <input placeholder="UpiId" type="text" required />
+                <input placeholder="ClubPoints" type="text" required />
+
+                <input class="formBtn" type="submit" />
+                <input class="formBtn" type="reset" />
+            </form>
+        </div>
+        <script>
+            $(function() {
+
+                // contact form animations
+                $('#contact').click(function() {
+                    $('#contactForm').fadeToggle();
+                    document.getElementById("main").style.opacity = "0.5";
+                    document.getElementById("contactForm").style.opacity = "1";
+
+
+                })
+                $(document).mouseup(function(e) {
+                    var container = $("#contactForm");
+                    if (!container.is(e.target) // if the target of the click isn't the container...
+                        &&
+                        container.has(e.target).length === 0) // ... nor a descendant of the container
+                    {
+                        document.getElementById("main").style.opacity = "1";
+                        container.fadeOut();
+                    }
+                });
+                let closeBtns = [...document.querySelectorAll(".close")];
+                closeBtns.forEach(function(btn) {
+                    btn.onclick = function() {
+                        let modal = btn.closest('#contactForm');
+                        modal.style.display = "none";
+                        document.getElementById("main").style.opacity = "1";
+                    }
+                });
+
+            });
+
+        </script>
     @endsection
 @else
     <script>

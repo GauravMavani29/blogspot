@@ -17,14 +17,14 @@
                         <input type="text" class="form-control" name="name" placeholder="Enter Plan Name">
                     </div>
                     <div class="form-group">
-                        <label for="cost">Cost:</label>
-                        <input type="text" class="form-control" name="cost" placeholder="Enter Cost">
-                    </div>
-                    <div class="form-group">
                         <label for="cost">Plan Description:</label>
                         <input type="text" class="form-control" name="description" placeholder="Enter Description">
                     </div>
-                    <button type="submit" class="btn btn-primary" style="color: white">Submit</button>
+                    <div class="form-group">
+                        <label for="cost">Cost:</label>
+                        <input type="text" class="form-control" name="cost" placeholder="Enter Cost">
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="color: white">Add</button>
                 </form>
             </div>
         </div>

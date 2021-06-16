@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\Comment;
 use Image;
 class PostController extends Controller
 {
@@ -158,9 +159,7 @@ class PostController extends Controller
         else{
             $rePostImage = $req->cur_postimage;
         }
-
         $post = Post::find($id);
-        $post->user_id = 0;
         $post->cat_id = $req->category;
         $post->title = $req->title;
         $post->thumb = $reThumbImage;
@@ -189,10 +188,9 @@ class PostController extends Controller
             @unlink($thumbpath);
         }
         if (file_exists($fullpath)) {
-
             @unlink($fullpath);
-     
         }
+        Comment::where('post_id',$id)->delete();
         Post::find($id)->delete();
         return redirect('admin/post');
     }

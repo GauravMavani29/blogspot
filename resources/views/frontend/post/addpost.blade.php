@@ -29,10 +29,13 @@ $count = \App\Models\Profile::where('user_id', Auth::user()->id)->count();
         <!-- Custom fonts for this template-->
         <link href="{{ asset('backend') }}/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
-        <link rel="stylesheet" href="bootstrap-tagsinput.css">
-
-        <script src="bootstrap-tagsinput.min.js"></script>
         <link rel="icon" type="image/png" href="{{ asset('icon') }}/post.png" />
+        <style>
+            body {
+                letter-spacing: 1px;
+            }
+
+        </style>
     </head>
 
     <body>
@@ -98,7 +101,7 @@ $count = \App\Models\Profile::where('user_id', Auth::user()->id)->count();
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 document.getElementById('logout-form').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             document.getElementById('logout-form').submit();">
                                             {{ __('Logout') }}
                                         </a>
 
@@ -191,7 +194,7 @@ $count = \App\Models\Profile::where('user_id', Auth::user()->id)->count();
 
                             </tr>
                             <tr>
-                                <th>Detail<span class="text-danger">*</span></th>
+                                <th>Description<span class="text-danger">*</span></th>
                                 <td>
                                     <textarea class="ckeditor form-control" name="detail">
                                     {{ old('detail') }}

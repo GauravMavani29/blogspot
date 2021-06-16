@@ -50,16 +50,19 @@
                                     <td style="display: flex; justify-content: space-evenly;">
                                         <div>
                                             <a href="{{ url('admin/category/' . $item->id . '/edit') }}"
-                                                class="btn btn-info btn-sm" style="margin: 2px">Update</a>
+                                                class="btn btn-info btn-sm" style="margin: 2px" data-toggle="tooltip"
+                                                data-placement="top" title="Edit"><i class="far fa-edit"></i></a>
                                         </div>
                                         <div>
-                                            <a onclick="confirm('Are You Sure You Want To Delete??')"
-                                                href="{{ url('admin/category/' . $item->id . '/delete') }}"
-                                                class="btn btn-danger btn-sm">Delete</a>
+                                            <a onclick="checkCategoryDelete({{ $item->id }})"
+                                                class="btn btn-danger btn-sm" style="color: white" data-toggle="tooltip"
+                                                data-placement="top" title="Delete"><i class="far fa-trash-alt"></i></a>
                                         </div>
                                         <div>
                                             <a href="{{ url('admin/category/allpost/' . $item->id) }}"
-                                                class="btn btn-warning btn-sm" style="color: white">All Posts</a>
+                                                class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top"
+                                                title="All Post"><i class="fa fa-list" aria-hidden="true"
+                                                    style="color: white"></i></a>
                                         </div>
                                     </td>
                                 </tr>
@@ -71,5 +74,13 @@
         </div>
 
     </div>
+    <script>
+        function checkCategoryDelete(id) {
+            if (confirm("Are you sure you want to delete!!")) {
+                window.location.href = "{{ url('admin/category') }}" + "/" + id + '/delete';
+            }
+        }
+
+    </script>
     <!-- /.container-fluid -->
 @endsection

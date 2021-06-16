@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Comment;
 use App\Models\Category;
+use App\Models\UsersClubpoint;
+use App\Models\Clubpoint;
 use Image;
 class UserpostController extends Controller
 {
@@ -154,7 +156,17 @@ class UserpostController extends Controller
         $data->post_id = $id;
         $data->comment = $req->usercomment;
         $data->save();
-
+        $postdata = Post::find($id);  
+        if($postdata->user_id != 0)
+        {
+             
+            $clubpoint = Clubpoint::first();
+            $checkid = UsersClubpoint::where('user_id',$postdata->user_id)->get();
+            $usersclubpoint = UsersClubpoint::find($checkid[0]->id);
+            $usersclubpoint->points += $clubpoint->comment;
+            $usersclubpoint->save();
+        }
+        
         return redirect('frontend/post/'.$id)->with('success','Comment Added Successfully');
     }
 
@@ -174,5 +186,10 @@ class UserpostController extends Controller
         else{
             return view('frontend.page.pageerror');
         }
+    }
+
+    function delete_comment($id){
+        Comment::find($id)->delete();
+        return redirect()->back();
     }
 }

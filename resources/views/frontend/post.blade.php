@@ -26,6 +26,11 @@
     <link rel="shortcut icon" href="favicon.png">
     <link rel="icon" type="image/png" href="{{ asset('icon') }}/post.png" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" />
+    <style>
+         body{
+            letter-spacing: 1px;
+            }
+    </style>
     <!-- Tweaks for older IEs-->
     <style>
         #commentscroll {
@@ -80,7 +85,7 @@
             <div class="container">
                 <!-- Navbar Brand -->
                 <div class="navbar-header d-flex align-items-center justify-content-between">
-                    <!-- Navbar Brand --><a href="{{ url('/') }}" class="navbar-brand">Bootstrap Blog</a>
+                    <!-- Navbar Brand --><a href="{{ url('/') }}" class="navbar-brand">Blogspot</a>
                     <!-- Toggle Button-->
                     <button type="button" data-toggle="collapse" data-target="#navbarcollapse"
                         aria-controls="navbarcollapse" aria-expanded="false" aria-label="Toggle navigation"
@@ -131,7 +136,7 @@
                                 <a class="nav-link" href="{{ url('frontend/post/addpost') }}">{{ __('Add Post') }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/frontend/post/allpost') }}">
+                                <a class="nav-link" href="{{ url('/frontend/post/managepost') }}">
                                     {{ __('All Post') }}
                                 </a>
                             </li>

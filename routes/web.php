@@ -31,36 +31,37 @@ Route::get('/admin/login',[AdminController::class, 'login']);
 Route::post('/admin/login',[AdminController::class, 'submit_login']);
 Route::get('/admin/dashboard',[AdminController::class, 'dashboard']);
 
-//category
+// category
 Route::resource('admin/category', CategoryController::class);
 Route::get('/admin/category/{id}/delete',[CategoryController::class, 'destroy']);
 Route::get('/admin/category/allpost/{id}',[CategoryController::class, 'allpost']);
 
 
-//post  
+// post  
 Route::get('/admin/post/{id}/delete',[PostController::class, 'destroy']);
 Route::resource('admin/post', PostController::class);
 
-//Clubpoints
+// Clubpoints
 Route::get('admin/clubpoints',[ClubpointController::class,'index']);
 Route::post('admin/clubpoints',[ClubpointController::class,'save_clubpoints']);
 
-//comments
+// comments
 Route::get('/admin/comments',[AdminController::class, 'comments']);
 Route::get('/admin/comments/delete/{id}',[AdminController::class, 'delete_comment']);
 Route::get('/admin/post/comments/{id}',[AdminController::class, 'all_comment']);
 
-//users
+// users
 Route::get('/admin/users',[AdminController::class, 'users']);
 Route::get('/admin/users/delete/{id}',[AdminController::class, 'delete_user']);
 Route::get('/admin/users/post/{id}',[AdminController::class, 'allpost']);
 
-//logout
+// logout
 Route::get('/admin/logout',function(){
     session()->forget(['adminData']);
     return redirect('admin/login');
 });
 
+// Settings
 Route::get('admin/setting',[SettingController::class,'index']);
 Route::post('admin/setting',[SettingController::class,'save_setting']);
 
@@ -74,10 +75,11 @@ Route::group(['middleware'=>['Userprotected']],function(){
     Route::put('/frontend/post/updatepost/{id}',[UserpostController::class, 'updatepost']); 
     Route::get('/frontend/post/deletepost/{id}',[UserpostController::class, 'deletepost']);
     Route::get('/frontend/post/comment/{id}',[UserpostController::class, 'all_comment']);
+    Route::get('/frontend/post/comments/delete/{id}',[UserpostController::class, 'delete_comment']);
 });
 
 Route::get('/',[HomeController::class, 'index']);
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/frontend/blog',[HomeController::class, 'blog']);
 Route::get('/frontend/category-blog/{id}',[HomeController::class, 'category_blog']);
 Route::get('/frontend/tag-blog/{tag}',[HomeController::class, 'tag_blog']);
@@ -112,4 +114,5 @@ Route::group(['middleware' => 'auth'], function() {
 //Routes for create Plan
 Route::get('admin/create/plan', [SubscriptionController::class,'createPlan'])->name('create.plan');
 Route::post('admin/store/plan', [SubscriptionController::class,'storePlan'])->name('store.plan');
+Route::get('admin/delete/plan/{planId}', [SubscriptionController::class,'deletePlan'])->name('delete.plan');
 Route::get('admin/plans', [PlanController::class,'adminindex'])->name('plans.adminindex');

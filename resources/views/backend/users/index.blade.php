@@ -1,7 +1,7 @@
 @extends('layout')
-@section('meta_desc', 'This is Comments Page')
-@section('title', 'Comments')
-@section('icons', '/comment.png')
+@section('meta_desc', 'This is Users Page')
+@section('title', 'Users')
+@section('icons', '/user.png')
 @section('content')
     <div class="container-fluid">
 
@@ -10,14 +10,14 @@
             <li class="breadcrumb-item">
                 <a href="{{ url('admin/dashboard') }}">Dashboard</a>
             </li>
-            <li class="breadcrumb-item active">All Comments</li>
+            <li class="breadcrumb-item active">Users</li>
         </ol>
 
 
         <!-- DataTables Example -->
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fas fa-comments"></i> All Comments
+                <i class="fas fa-users"></i> Users
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -25,9 +25,8 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Post Title</th>
-                                <th>Username</th>
-                                <th>Comment</th>
+                                <th>Name</th>
+                                <th>Email</th>
                                 <th>Actions</th>
 
                             </tr>
@@ -35,9 +34,8 @@
                         <tfoot>
                             <tr>
                                 <th>#</th>
-                                <th>Post Title</th>
-                                <th>Username</th>
-                                <th>Comment</th>
+                                <th>Name</th>
+                                <th>Email</th>
                                 <th>Actions</th>
                             </tr>
                         </tfoot>
@@ -47,29 +45,26 @@
                                 <tr>
                                     <td>{{ $item->id }}</td>
                                     <td>
-                                        {{ $item->post->title }}
+                                        {{ $item->name }}
                                     </td>
                                     <td>
-                                        @if ($item->id)
-
-                                            {{ $item->user->name }}
-
-                                        @else
-                                            nothing
-                                        @endif
-
-                                    </td>
-
-                                    <td>
-
-                                        {{ $item->comment }}
-
+                                        {{ $item->email }}
                                     </td>
 
                                     <td style="display: flex; justify-content: space-evenly; align-content: center ">
-                                        <a onclick="checkCommentDelete({{ $item->id }})" class="btn btn-danger btn-sm"
-                                            style="color: white" data-toggle="tooltip" data-placement="left"
-                                            title="Delete"><i class="far fa-trash-alt"></i></a>
+                                        @if (!($item->id == 0))
+                                            <div>
+                                                <a href="{{ url('admin/users/post/' . $item->id) }}"
+                                                    class="btn btn-warning btn-sm" style="color: white"
+                                                    data-toggle="tooltip" data-placement="top" title="All Post"><i
+                                                        class="fa fa-list" aria-hidden="true" style="color: white"></i></a>
+                                            </div>
+                                            <div>
+                                                <a onclick="checkUserDelete({{ $item->id }})"
+                                                    class="btn btn-danger btn-sm" style="color: white" data-toggle="tooltip"
+                                                    data-placement="top" title="Delete"><i class="far fa-trash-alt"></i></a>
+                                            </div>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach
@@ -81,9 +76,9 @@
         </div>
     </div>
     <script>
-        function checkCommentDelete(id) {
+        function checkUserDelete(id) {
             if (confirm("Are you sure you want to delete!!")) {
-                window.location.href = "{{ url('admin/comments/delete') }}" + "/" + id;
+                window.location.href = "{{ url('admin/users/delete') }}" + "/" + id;
             }
         }
 

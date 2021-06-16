@@ -42,6 +42,11 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="bootstrap-tagsinput.min.js"></script>
+    <style>
+        body{
+        letter-spacing: 1px;
+    }
+    </style>
 </head>
 @if (!session()->has('adminData'))
     <script>
@@ -104,11 +109,16 @@
                 </div>
             </li>
             {{-- ClubPoints --}}
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url('admin/clubpoints') }}">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-bullseye"></i>
                     <span>ClubPoints</span>
                 </a>
+                <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+                    <a class="dropdown-item" href="{{ url('admin/clubpoints') }}">Manage Clubpoints</a>
+                    <a class="dropdown-item" href="{{ url('/') }}">Users Clubpoints</a>
+                </div>
             </li>
             <!-- Comments -->
             <li class="nav-item">
@@ -164,7 +174,12 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
+    <script>
+        $(document).ready(function() {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
 
+    </script>
     <!-- Bootstrap core JavaScript-->
     <script src="{{ asset('backend') }}/vendor/jquery/jquery.min.js"></script>
     <script src="{{ asset('backend') }}/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

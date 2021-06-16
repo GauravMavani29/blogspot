@@ -1,7 +1,6 @@
 @extends('layout')
 @section('title', 'All Post')
 @section('meta_desc', 'This is Post')
-@section('title', 'Post')
 @section('icons', '/post.png')
 @section('content')
     <div class="container-fluid">
@@ -65,16 +64,18 @@
                                         style="display: flex; flex-direction: column; justify-content: center; align-items: center ">
                                         <div style="margin: 5px;">
                                             <a href="{{ url('admin/post/comments/' . $item->id) }}"
-                                                class="btn btn-secondary btn-sm" style="margin: 2px">Comments</a>
+                                                class="btn btn-secondary btn-sm" style="margin: 2px" data-toggle="tooltip"
+                                                data-placement="left" title="Comments"><i class="far fa-comments"></i></a>
                                         </div>
                                         <div style="margin: 5px;">
                                             <a href="{{ url('admin/post/' . $item->id . '/edit') }}"
-                                                class="btn btn-info btn-sm" style="margin: 2px">Update</a>
+                                                class="btn btn-info btn-sm" style="margin: 2px" data-toggle="tooltip"
+                                                data-placement="left" title="Edit"><i class="far fa-edit"></i></a>
                                         </div>
                                         <div style="margin: 5px;">
-                                            <a onclick="confirm('Are You Sure You Want To Delete??')"
-                                                href="{{ url('admin/post/' . $item->id . '/delete') }}"
-                                                class="btn btn-danger btn-sm">Delete</a>
+                                            <a onclick="checkAdminPostDelete({{ $item->id }})" style="color: white"
+                                                class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="left"
+                                                title="Delete"><i class="far fa-trash-alt"></i></a>
                                         </div>
                                     </td>
                                 </tr>
@@ -86,5 +87,14 @@
         </div>
 
     </div>
+
+    <script>
+        function checkAdminPostDelete(id) {
+            if (confirm("Are you sure you want to delete!!")) {
+                window.location.href = "{{ url('admin/post') }}" + "/" + id + "/delete";
+            }
+        }
+
+    </script>
     <!-- /.container-fluid -->
 @endsection

@@ -43,6 +43,11 @@
 
     <script src="bootstrap-tagsinput.min.js"></script>
     <link rel="icon" type="image/png" href="{{ asset('icon') }}/post.png" />
+    <style>
+        body{
+            letter-spacing: 1px;
+            }
+    </style>
 </head>
 
 <body>
@@ -106,7 +111,7 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             document.getElementById('logout-form').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
@@ -221,7 +226,7 @@
 
                             </tr>
                             <tr>
-                                <th>Detail</th>
+                                <th>Description</th>
                                 <td>
                                     <textarea class="ckeditor form-control" name="detail">
                                         {{ $data->detail }}
@@ -246,7 +251,7 @@
                                 </td>
                             </tr>
                             <td colspan="2">
-                                <input type="submit" class="btn btn-primary" value="Update" />
+                                <input type="submit" class="btn btn-secondary" value="Update" />
                             </td>
                             </tr>
                         </table>

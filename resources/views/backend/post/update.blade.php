@@ -95,11 +95,11 @@
 
                             </tr>
                             <tr>
-                                <th>Detail</th>
+                                <th>Descriptions</th>
                                 <td>
                                     <textarea class="ckeditor form-control" name="detail">
-                                                                                                                                    {{ $data->detail }}
-                                                                                                                                </textarea>
+                                                                                                                                            {{ $data->detail }}
+                                                                                                                                        </textarea>
                                     <span style="color: red">
 
                                         @error('detail')

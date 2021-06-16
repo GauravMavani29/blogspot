@@ -44,7 +44,7 @@
                             </tr>
                             <tr>
                                 <td colspan="2">
-                                    <input type="submit" class="btn btn-primary" value="Add" />
+                                    <input type="submit" class="btn btn-primary" value="Update" />
                                 </td>
                             </tr>
                         </table>

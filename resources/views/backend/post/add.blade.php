@@ -74,11 +74,11 @@
 
                             </tr>
                             <tr>
-                                <th>Detail<span class="text-danger">*</span></th>
+                                <th>Description<span class="text-danger">*</span></th>
                                 <td>
                                     <textarea class="ckeditor form-control" name="detail">
 
-                                                                                                                                                                        </textarea>
+                                                                                                                                                                            </textarea>
                                     <span style="color: red">
 
                                         @error('detail')

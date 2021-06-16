@@ -63,4 +63,9 @@ class subscriptionController extends Controller
         Plan::create($data);
         return redirect('admin/create/plan')->with('success', 'Plan Addedd Successfully!!');
     }
+
+    public function deletePlan(Request $request,$planId){
+        Plan::find($planId)->delete();
+        return redirect("admin/plans")->with("delete", "Plan deleted successfully");
+    }
 }

@@ -1,1 +1,66 @@
-/* your styles go here */
+@import "https://fonts.googleapis.com/css?family=Roboto";
+h1 {
+    margin: 0;
+}
+#contact {
+    width: 100px;
+    line-height: 30px;
+    background: teal;
+    color: white;
+    font-weight: 700;
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid white;
+    cursor: pointer;
+}
+
+#contact:hover {
+    background: #666;
+}
+#contact:active {
+    background: #444;
+}
+
+#contactForm {
+    display: none;
+    border: 6px solid salmon;
+    padding: 2em;
+    width: 400px;
+    text-align: center;
+    background: #fff;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    z-index: 999;
+    cursor: pointer;
+}
+
+input,
+textarea {
+    margin: 0.8em auto;
+    font-family: "Roboto";
+    text-transform: inherit;
+    font-size: inherit;
+    display: block;
+    width: 280px;
+    padding: 0.4em;
+}
+textarea {
+    height: 80px;
+    resize: none;
+}
+
+.formBtn {
+    width: 140px;
+    display: inline-block;
+    background: teal;
+    color: #fff;
+    font-weight: 100;
+    font-size: 1.2em;
+    border: none;
+}
+#close {
+    cursor: pointer;
+}

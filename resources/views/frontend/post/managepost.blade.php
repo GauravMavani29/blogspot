@@ -32,6 +32,7 @@ $count = \App\Models\Profile::where('user_id', Auth::user()->id)->count();
 
         <!-- Page level plugin CSS-->
         <link href="{{ asset('backend') }}/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
         <style>
             #t1::-webkit-scrollbar {
@@ -48,7 +49,9 @@ $count = \App\Models\Profile::where('user_id', Auth::user()->id)->count();
                 border: 0.1rem solid rgb(236, 236, 236);
                 padding: 1rem;
             }
-
+            body{
+                letter-spacing: 1px;
+                }
         </style>
     </head>
 
@@ -114,7 +117,7 @@ $count = \App\Models\Profile::where('user_id', Auth::user()->id)->count();
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             document.getElementById('logout-form').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 document.getElementById('logout-form').submit();">
                                             {{ __('Logout') }}
                                         </a>
 
@@ -192,24 +195,31 @@ $count = \App\Models\Profile::where('user_id', Auth::user()->id)->count();
                                                         alt="" height="100px" width="100px">
                                                 </td>
                                                 <td
-                                                    style="display: flex; justify-content: space-evenly; align-content: center ">
+                                                    style="display: flex; justify-content: center; align-iteams: center ">
                                                     <div style="margin: 5px">
                                                         <a href="{{ url('frontend/post/comment/' . $item->id) }}"
-                                                            class="btn btn-secondary btn-sm"
-                                                            style="margin: 2px">Comments</a>
+                                                            class="btn btn-secondary btn-sm" style="margin: 2px"
+                                                            data-toggle="tooltip" data-placement="top"
+                                                            title="Comments"><i class="far fa-comments"></i></a>
                                                     </div>
                                                     <div style="margin: 5px">
                                                         <a href="{{ url('frontend/post/editpost/' . $item->id) }}"
-                                                            class="btn btn-info btn-sm" style="margin: 2px">Update</a>
+                                                            class="btn btn-info btn-sm" style="margin: 2px"
+                                                            data-toggle="tooltip" data-placement="top" title="Edit"><i
+                                                                class="far fa-edit"></i></a>
                                                     </div>
-                                                    <div style="margin: 5px">
-                                                        <a onclick="confirm('Are You Sure You Want To Delete??')"
-                                                            href="{{ url('frontend/post/deletepost/' . $item->id) }}"
-                                                            class="btn btn-danger btn-sm">Delete</a>
+                                                    <div style="margin: 5px;">
+                                                        <a onclick="checkUserPostDelete({{ $item->id }})"
+                                                            class="btn btn-danger btn-sm"
+                                                            style="color: white;"
+                                                            data-toggle="tooltip" data-placement="top" title="Delete"><i
+                                                                class="far fa-trash-alt"></i></a>
                                                     </div>
                                                     <div style="margin: 5px">
                                                         <a href="{{ url('frontend/post/' . $item->id) }}"
-                                                            class="btn btn-success btn-sm">Show</a>
+                                                            class="btn btn-success btn-sm" data-toggle="tooltip"
+                                                            data-placement="top" title="Show"><i class="fa fa-eye"
+                                                                aria-hidden="true"></i></a>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -222,6 +232,19 @@ $count = \App\Models\Profile::where('user_id', Auth::user()->id)->count();
                 </div>
             </div>
         </div>
+
+        <script>
+            function checkUserPostDelete(id) {
+                if (confirm("Are you sure you want to delete!!")) {
+                    window.location.href = "{{ url('frontend/post/allpost') }}" + "/" + id;
+                }
+            }
+            $(document).ready(function() {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+
+        </script>
+
         <!-- JavaScript files-->
         <script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
         <script src="{{ asset('frontend') }}/vendor/jquery/jquery.min.js"></script>
@@ -245,7 +268,7 @@ $count = \App\Models\Profile::where('user_id', Auth::user()->id)->count();
 
         <!-- Demo scripts for this page-->
         <script src="{{ asset('backend') }}/js/demo/datatables-demo.js"></script>
-        {{-- <script src="{{ asset('backend') }}/js/demo/chart-area-demo.js"></script> --}}
+        <script src="{{ asset('backend') }}/js/demo/chart-area-demo.js"></script>
     </body>
 
     </html>

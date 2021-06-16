@@ -22,6 +22,9 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
+                    @if (Session::has('delete'))
+                        <h4 style="color: green">{{ session('delete') }}</h4>
+                    @endif
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
@@ -53,19 +56,11 @@
                                     <td>{{ $item->description }}</td>
                                     <td
                                         style="display: flex; flex-direction: column; justify-content: center; align-items: center ">
-                                        {{-- <div style="margin: 5px;">
-                                            <a href="{{ url('admin/post/comments/' . $item->id) }}"
-                                                class="btn btn-secondary btn-sm" style="margin: 2px">Comments</a>
-                                        </div>
                                         <div style="margin: 5px;">
-                                            <a href="{{ url('admin/post/' . $item->id . '/edit') }}"
-                                                class="btn btn-info btn-sm" style="margin: 2px">Update</a>
+                                            <a onclick="checkPlanDelete({{ $item->id }})" class="btn btn-danger btn-sm"
+                                                style="color: white" data-toggle="tooltip" data-placement="left"
+                                                title="Delete"><i class="far fa-trash-alt"></i></a>
                                         </div>
-                                        <div style="margin: 5px;">
-                                            <a onclick="confirm('Are You Sure You Want To Delete??')"
-                                                href="{{ url('admin/post/' . $item->id . '/delete') }}"
-                                                class="btn btn-danger btn-sm">Delete</a>
-                                        </div> --}}
                                     </td>
                                 </tr>
                             @endforeach
@@ -74,7 +69,14 @@
                 </div>
             </div>
         </div>
-
     </div>
+    <script>
+        function checkPlanDelete(id) {
+            if (confirm("Are you sure you want to delete!!")) {
+                window.location.href = "{{ url('admin/delete/plan') }}" + "/" + id;
+            }
+        }
+
+    </script>
     <!-- /.container-fluid -->
 @endsection

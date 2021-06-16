@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Profile;
 use App\Models\Post;
 use App\Models\Comment;
+use App\Models\UsersClubpoint;
 use Image;
 class UserprofileController extends Controller
 {
@@ -15,7 +16,8 @@ class UserprofileController extends Controller
         $data = Profile::where('user_id',$req->user()->id)->get();
         $post = Post::where('user_id',$req->user()->id)->count();
         $comment = Comment::where('user_id',$req->user()->id)->count();
-        return view('frontend.profile.index',['collection'=>$data,'post'=>$post,'comment'=>$comment]);
+        $points = Usersclubpoint::where('user_id', $req->user()->id)->get('points')[0]->points;
+        return view('frontend.profile.index',['collection'=>$data,'post'=>$post,'comment'=>$comment,'points'=>$points]);
     }
     public function create()
     {
@@ -61,6 +63,13 @@ class UserprofileController extends Controller
         $profile->instagram = $req->instagram;
         $profile->facebook = $req->facebook;
         $profile->save();
+
+        //usersclubpoint table
+        $clubuser = new UsersClubpoint;
+
+        $clubuser->user_id = $req->user()->id;
+        $clubuser->points = 0;
+        $clubuser->save();
         return redirect('/create/profile')->with('success','successfully profile created');
     }
 }

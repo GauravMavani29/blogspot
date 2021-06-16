@@ -55,7 +55,7 @@ class AdminController extends Controller
     function users()
     {
         $data = User::orderBy('id','desc')->get();
-        return view('Users.index',['collection'=>$data]);
+        return view('backend.users.index',['collection'=>$data]);
     }
 
     function delete_user($id)
