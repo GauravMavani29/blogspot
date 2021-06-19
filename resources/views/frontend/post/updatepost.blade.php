@@ -44,9 +44,10 @@
     <script src="bootstrap-tagsinput.min.js"></script>
     <link rel="icon" type="image/png" href="{{ asset('icon') }}/post.png" />
     <style>
-        body{
+        body {
             letter-spacing: 1px;
-            }
+        }
+
     </style>
 </head>
 
@@ -111,7 +112,7 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         document.getElementById('logout-form').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
@@ -161,7 +162,7 @@
                                 @endif
                             </span>
                             <tr>
-                                <th>Post</th>
+                                <th>Category</th>
                                 <td>
                                     <select name="category" class="form-control">
                                         @foreach ($Category as $item)

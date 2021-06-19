@@ -32,7 +32,7 @@
                                 @endif
                             </span>
                             <tr>
-                                <th>Post</th>
+                                <th>Category</th>
                                 <td>
                                     <select name="category" class="form-control">
                                         @foreach ($collection as $item)
@@ -98,8 +98,8 @@
                                 <th>Descriptions</th>
                                 <td>
                                     <textarea class="ckeditor form-control" name="detail">
-                                                                                                                                            {{ $data->detail }}
-                                                                                                                                        </textarea>
+                                                                                                                                                {{ $data->detail }}
+                                                                                                                                            </textarea>
                                     <span style="color: red">
 
                                         @error('detail')

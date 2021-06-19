@@ -27,9 +27,10 @@
     <link rel="icon" type="image/png" href="{{ asset('icon') }}/post.png" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" />
     <style>
-         body{
+        body {
             letter-spacing: 1px;
-            }
+        }
+
     </style>
     <!-- Tweaks for older IEs-->
     <style>

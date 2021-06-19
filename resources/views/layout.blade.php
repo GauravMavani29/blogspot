@@ -10,6 +10,7 @@
     <meta name="author" content="">
 
     <title>@yield('title','Admin Dashboard')</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
@@ -38,14 +39,12 @@
     <!-- Custom icon font-->
     <link rel="stylesheet" href="{{ asset('frontend') }}/css/fontastic.css">
 
-    <link rel="stylesheet" href="bootstrap-tagsinput.css">
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="bootstrap-tagsinput.min.js"></script>
     <style>
-        body{
-        letter-spacing: 1px;
-    }
+        body {
+            letter-spacing: 1px;
+        }
+
     </style>
 </head>
 @if (!session()->has('adminData'))
