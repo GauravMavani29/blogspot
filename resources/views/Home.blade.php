@@ -34,9 +34,11 @@
     .content {
         padding: 0;
     }
-    body{
+
+    body {
         letter-spacing: 1px;
     }
+
 </style>
 
 <body>
@@ -76,7 +78,7 @@
                         </li>
                         <li class="nav-item"><a href="{{ url('frontend/post') }}" class="nav-link ">Post</a>
                         </li>
-                        <li class="nav-item"><a href="#" class="nav-link ">
+                        <li class="nav-item"><a href="{{ url('/contactus') }}" class="nav-link ">
                                 Contact
                             </a>
                         </li>
@@ -102,7 +104,7 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                document.getElementById('logout-form').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
@@ -138,8 +140,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-7">
-                    <h1>Bootstrap 4 Blog - A free template by Bootstrap Temple</h1><a href="frontend/blog"
-                        class="hero-link">Discover More</a>
+                    <h1>The first thing you learn when you're blogging is that people are one click away from leaving
+                        you.</h1><a href="frontend/blog" class="hero-link">Discover More</a>
                 </div>
             </div><a href=".intro" class="continue link-scroll"><i class="fa fa-long-arrow-down"></i> Scroll Down</a>
         </div>
@@ -150,10 +152,11 @@
             <div class="row">
                 <div class="col-lg-8">
                     <h2 class="h3">Some great intro here</h2>
-                    <p class="text-big">Place a nice <strong>introduction</strong> here <strong>to catch reader's
-                            attention</strong>. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud nisi
-                        ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderi.</p>
+                    <p class="text-big">A <strong>blog</strong> (a shortened version of “weblog”) is an online journal
+                        or informational
+                        website displaying information in reverse chronological order, with the latest posts appearing
+                        first, at the top. It is a platform where a writer or a group of writers share their views on an
+                        individual subject.</p>
                 </div>
             </div>
         </div>
@@ -262,8 +265,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-7">
-                    <h2>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua</h2><a href="#" class="hero-link">View More</a>
+                    <h3 style="letter-spacing: 3px;">In the general scheme of things, a good blog is one
+                        that gives its
+                        users great content,
+                        regularly. Content that enriches those readers' lives, and gives them something to look forward
+                        to for the next time. A good blog is one that compels the reader to tell all their friends about
+                        what they're reading.</h3><a href="#" class="hero-link">View More</a>
                 </div>
             </div>
         </div>
@@ -273,7 +280,7 @@
         <div class="container">
             <header>
                 <h2>Popular from the blog</h2>
-                <p class="text-big">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                <p class="text-big">This is helpful content for your audience, and great content for your website.</p>
             </header>
             <div class="row">
                 @foreach ($popular_posts as $item)

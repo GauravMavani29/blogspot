@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\UsersClubpoint;
 use App\Models\Clubpoint;
 use Image;
+use auth;
 class UserpostController extends Controller
 {
     //
@@ -21,7 +22,12 @@ class UserpostController extends Controller
     {
         $category = Category::all();
         $data = Post::find($id);
-        return view('frontend.post.updatepost',['data'=>$data,'Category'=>$category]);
+        if($data->user_id == Auth::user()->id){
+
+            return view('frontend.post.updatepost',['data'=>$data,'Category'=>$category]);
+        }else{
+            return view('frontend.page.pageerror');
+        }
     }
 
     function savepost(Request $req)
@@ -140,8 +146,14 @@ class UserpostController extends Controller
             @unlink($fullpath);
      
         }
-        Post::find($id)->delete();
-        return redirect('frontend/post/managepost');
+        $data = Post::find($id);
+        if($data->user_id == Auth::user()->id){
+            Post::find($id)->delete();
+            return redirect('frontend/post/managepost');
+        }else{
+            return view('frontend.page.pageerror');
+        }
+        
     }
 
     function managepost(Request $req)

@@ -51,7 +51,6 @@ class HomeController extends Controller
             {
                 $check = 1;
             }
-
         }
         else{
             $totalcount = Viewscount::where('ip',$req->ip())->where('viewdate',$todayDate)->where('user_id',null)->count();
@@ -289,5 +288,9 @@ class HomeController extends Controller
     {
         $data = Post::where('tags','like','%'.$tag.'%')->paginate(4);
         return view('frontend.blog',['collection'=>$data,'name'=>$tag]);
+    }
+
+    function contactus(){
+        return view('contactus');
     }
 }

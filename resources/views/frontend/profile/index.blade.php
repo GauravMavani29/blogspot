@@ -159,13 +159,24 @@ $count = \App\Models\Profile::where('user_id', Auth::user()->id)->count();
                                     <div class="col-sm-3" style="display: flex; align-items: center">
                                         <h6 class="mb-0">Club Points</h6>
                                     </div>
-                                    <div class="col-sm-1 text-secondary" style="margin-top: 7px">
+                                    <div class="col-sm-1 text-secondary" style="margin-top: 7px; max-width:100%">
                                         {{ $points }}
                                     </div>
-                                    <div class="col-sm-3">
-                                        <button class="btn btn-dark" style="color: white" id="contact">
-                                            Reedem
+                                    <div class="col-sm-3" style="display: flex; align-items: center">
+                                        <button class="btn btn-dark" style="color: white" id="contact"
+                                            onclick="redeemCheck()">
+                                            Redeem
                                         </button>
+                                        <p style="margin: 0 0 0 4px; color: red">
+                                            @if (session()->has('error'))
+                                                {{ session('error') }}
+                                            @endif
+                                        </p>
+                                        <p style="margin: 0 0 0 4px; color: green">
+                                            @if (session()->has('msg'))
+                                                {{ session('msg') }}
+                                            @endif
+                                        </p>
                                     </div>
 
 
@@ -209,16 +220,20 @@ $count = \App\Models\Profile::where('user_id', Auth::user()->id)->count();
             <h1>Payment Details!<a class="close">&times;</a></h1>
             <small>We'll get back to you as quickly as possible</small>
 
-            <form action="#">
-                <input placeholder="Username" type="text" required />
-                <input placeholder="UpiId" type="text" required />
-                <input placeholder="ClubPoints" type="text" required />
+            <form action="{{ url('/redeem') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <input placeholder="Email" type="email" required name="email" />
+                <input placeholder="UpiId" type="text" required name="upiid" />
+                <input placeholder="ClubPoints" type="number" min="2000" required name="points" />
 
                 <input class="formBtn" type="submit" />
                 <input class="formBtn" type="reset" />
             </form>
         </div>
         <script>
+            // function redeemCheck() {
+            //     alert("minimum 2000 points required for redeem");
+            // }
             $(function() {
 
                 // contact form animations
@@ -249,12 +264,10 @@ $count = \App\Models\Profile::where('user_id', Auth::user()->id)->count();
                 });
 
             });
-
         </script>
     @endsection
 @else
     <script>
         window.location = "create/profile";
-
     </script>
 @endif

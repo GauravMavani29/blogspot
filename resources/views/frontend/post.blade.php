@@ -63,7 +63,6 @@
             js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.1';
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
-
     </script>
     <header class="header">
         <!-- Main Navbar-->
@@ -101,7 +100,7 @@
                         </li>
                         <li class="nav-item"><a href="{{ url('frontend/post') }}" class="nav-link active">Post</a>
                         </li>
-                        <li class="nav-item"><a href="#" class="nav-link ">Contact</a>
+                        <li class="nav-item"><a href="{{ url('/contactus') }}" class="nav-link ">Contact</a>
                         </li>
                         @guest
                             @if (Route::has('login'))
@@ -440,7 +439,7 @@
             let postTitle = encodeURI("Hi everyone, please check this out: ");
             let postImg = encodeURI(pinterestImg.src);
 
-            // facebookBtn.setAttribute(
+            // facebookBtn.setAttribute(    
             //     "href",
             //     `https://www.facebook.com/sharer.php?u=${postUrl}`
             // );
@@ -467,7 +466,6 @@
         }
 
         init();
-
     </script>
     <script src="{{ asset('frontend') }}/js/front.js"></script>
 </body>

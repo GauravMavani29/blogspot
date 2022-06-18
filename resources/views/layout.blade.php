@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -50,7 +49,6 @@
 @if (!session()->has('adminData'))
     <script>
         window.location.href = "{{ url('admin/login') }}";
-
     </script>
 @endif
 
@@ -116,7 +114,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="pagesDropdown">
                     <a class="dropdown-item" href="{{ url('admin/clubpoints') }}">Manage Clubpoints</a>
-                    <a class="dropdown-item" href="{{ url('/') }}">Users Clubpoints</a>
+                    <a class="dropdown-item" href="{{ url('admin/users_point') }}">Users Clubpoints</a>
                 </div>
             </li>
             <!-- Comments -->
@@ -177,7 +175,6 @@
         $(document).ready(function() {
             $('[data-toggle="tooltip"]').tooltip();
         });
-
     </script>
     <!-- Bootstrap core JavaScript-->
     <script src="{{ asset('backend') }}/vendor/jquery/jquery.min.js"></script>

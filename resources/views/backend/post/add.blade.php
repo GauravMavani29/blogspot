@@ -78,7 +78,7 @@
                                 <td>
                                     <textarea class="ckeditor form-control" name="detail">
 
-                                                                                                                                                                            </textarea>
+                                                                                                                                                                                            </textarea>
                                     <span style="color: red">
 
                                         @error('detail')

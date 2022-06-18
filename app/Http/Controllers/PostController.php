@@ -55,11 +55,11 @@ class PostController extends Controller
             $image = $req->file('post_thumb');
             $reThumbImage = time() . '.' . $image->getClientOriginalExtension();
             $dest = public_path('./Post images/Thumbnail');
-            // $image->move($dest,$reThumbImage);
-            $img = Image::make($image->path());
-            $img->resize(500, 350, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save($dest.'/'.$reThumbImage);
+            $image->move($dest,$reThumbImage);
+            // $img = Image::make($image->path());
+            // $img->resize(500, 350, function ($constraint) {
+            //     $constraint->aspectRatio();
+            // })->save($dest.'/'.$reThumbImage);
         }
 
         if($req->has('post_image'))

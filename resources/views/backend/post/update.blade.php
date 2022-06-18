@@ -10,7 +10,7 @@
             <li class="breadcrumb-item">
                 <a href="{{ url('admin/dashboard') }}">Dashboard</a>
             </li>
-            <li class="breadcrumb-item active">Update Category</li>
+            <li class="breadcrumb-item active">Update Post</li>
         </ol>
 
 
@@ -97,11 +97,8 @@
                             <tr>
                                 <th>Descriptions</th>
                                 <td>
-                                    <textarea class="ckeditor form-control" name="detail">
-                                                                                                                                                {{ $data->detail }}
-                                                                                                                                            </textarea>
+                                    <textarea class="ckeditor form-control" name="detail">{{ $data->detail }}</textarea>
                                     <span style="color: red">
-
                                         @error('detail')
                                             {{ $message }}
                                         @enderror

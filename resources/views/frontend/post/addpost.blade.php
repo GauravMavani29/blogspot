@@ -77,7 +77,7 @@ $count = \App\Models\Profile::where('user_id', Auth::user()->id)->count();
                             <li class="nav-item"><a href="{{ url('frontend/post') }}"
                                     class="nav-link @yeild('val','active') ">Post</a>
                             </li>
-                            <li class="nav-item"><a href="#" class="nav-link ">Contact</a>
+                            <li class="nav-item"><a href="{{ url('/contactus') }}" class="nav-link ">Contact</a>
                             </li>
                             @guest
                                 @if (Route::has('login'))
@@ -101,7 +101,7 @@ $count = \App\Models\Profile::where('user_id', Auth::user()->id)->count();
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             document.getElementById('logout-form').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 document.getElementById('logout-form').submit();">
                                             {{ __('Logout') }}
                                         </a>
 
@@ -244,6 +244,5 @@ $count = \App\Models\Profile::where('user_id', Auth::user()->id)->count();
 @else
     <script>
         window.location = "{{ url('/create/profile') }}";
-
     </script>
 @endif

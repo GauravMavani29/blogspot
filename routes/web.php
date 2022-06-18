@@ -44,7 +44,9 @@ Route::resource('admin/post', PostController::class);
 // Clubpoints
 Route::get('admin/clubpoints',[ClubpointController::class,'index']);
 Route::post('admin/clubpoints',[ClubpointController::class,'save_clubpoints']);
-
+Route::get('admin/users_point',[ClubpointController::class,'users_point']);
+Route::get('admin/clubpoints/approve/{id}',[ClubpointController::class,'approve']);
+Route::get('admin/clubpoints/{id}/disapprove',[ClubpointController::class,'disapprove']);
 // comments
 Route::get('/admin/comments',[AdminController::class, 'comments']);
 Route::get('/admin/comments/delete/{id}',[AdminController::class, 'delete_comment']);
@@ -80,6 +82,7 @@ Route::group(['middleware'=>['Userprotected']],function(){
 
 Route::get('/',[HomeController::class, 'index']);
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/contactus', [HomeController::class, 'contactus'])->name('contactus');
 Route::get('/frontend/blog',[HomeController::class, 'blog']);
 Route::get('/frontend/category-blog/{id}',[HomeController::class, 'category_blog']);
 Route::get('/frontend/tag-blog/{tag}',[HomeController::class, 'tag_blog']);
@@ -91,6 +94,7 @@ Route::group(['middleware' => 'verified'], function() {
     Route::post('/storeprofile',[UserprofileController::class,'store']);
     Route::get('/profile',[UserprofileController::class,'index']);
     Route::post('save-comment/{id}',[UserpostController::class,'save_comment']);
+    Route::post('/redeem',[UserprofileController::class,'redeem']);
 });
 
 Route::get('/testing',function()
